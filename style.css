@@ -3,3 +3,16 @@
     padding: 0;
     box-sizing: border-box;
 }
+.row{
+    display: flex;
+    align-items: center;
+    padding: 20px 50px;
+}
+.col{
+    flex-basis: 100%;
+    width: 30%;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    text-align: justify;
+    margin: 20px;
+}
