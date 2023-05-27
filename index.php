@@ -12,12 +12,6 @@
     <div class="header">
         <div class="header-content">
             <img src="img/logo.png" alt=""class="logo">
-            <div class="new">
-                <ul>
-                <li><h3 class="new-user">New User?</h3>
-                <li><a href="#" class="signup">Sign Up</a></li>
-                </ul>
-            </div>
         </div>
     </div>
 <div class="wave">
