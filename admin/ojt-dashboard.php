@@ -381,19 +381,38 @@ if (isset($_SESSION['useremail'])) {
 
             <div class="col-xxl-4 col-xl-12">
               <div class="card info-card customers-card">
-                <a href="moa-dashboard.php">
-                  <div class="card-body">
+                  <div class="card-body" data-bs-target="#moamodal" data-bs-toggle="modal">
                     <h5 class="card-title">MOA</h5>
                     <div class="d-flex align-items-center">
                       <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                         <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
                       </div>
+                       <!-- modal for parent -->
+                    <div class="modal fade" id="moamodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"> Edit Student Records </h5>
+                            <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            </button>
+                          </div>
+
+                            <div class="modal-body">
+
+                            <iframe src="moa-dashboard.php" width="1100" height="500" frameborder="0"></iframe>
+            
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
                       <div class="ps-3">
                         <h6><?php echo $total_moa; ?></h6>
                       </div>
                     </div>
                   </div>
-                </a>
               </div>
             </div>
 
