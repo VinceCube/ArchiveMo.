@@ -161,7 +161,7 @@ form{
 	margin-bottom: 4px;
 }
 
-a{
+.forgot{
 	display: block;
 	text-align: right;
 	text-decoration: none;
@@ -170,18 +170,41 @@ a{
 	transition: .3s;
 }
 
-a:hover{
+.forgot:hover{
 	color: #F5A623;
 }
-
-.btn{
+.button2{
 	display: block;
 	width: 100%;
 	height: 50px;
 	border-radius: 25px;
 	outline: none;
 	border: none;
+	background-color: transparent;
+	background-size: 200%;
+	font-size: 1.2rem;
+	color: #fff;
+	font-family: 'Poppins', sans-serif;
+	text-transform: uppercase;
+	margin: 1rem 0;
+	cursor: pointer;
+	border: #222 1px solid;
+	transition: .5s;
+	color: #222;
+}
+.button2:hover{
 	background-color: #e68e00;
+	border: 1px solid #e68e00;
+    color: #fff;
+}
+.button{
+	display: block;
+	width: 100%;
+	height: 50px;
+	border-radius: 25px;
+	outline: none;
+	border: none;
+	background-color: #ffa109;
 	background-size: 200%;
 	font-size: 1.2rem;
 	color: #fff;
@@ -191,10 +214,9 @@ a:hover{
 	cursor: pointer;
 	transition: .5s;
 }
-.btn:hover{
-	background-color: #ffffff;
-    border: 1px #999 solid;
-    color: #F5A623;
+.button:hover{
+	background-color: #e68e00;
+    color: #fff;
 }
 .wave {
     position: absolute;
