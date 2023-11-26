@@ -180,7 +180,7 @@ if (isset($_GET['id'])) {
               <div class="card recent-sales overflow-auto">
 
                 <div class="card-body">
-                  <h5 class="card-title">Waiver</h5>
+                  <h5 class="card-title">Parent Concent</h5>
                   <table class="table datatable">
                     <thead>
                     <tr>
