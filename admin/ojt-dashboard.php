@@ -246,14 +246,14 @@ if (isset($_SESSION['useremail'])) {
                             </button>
                           </div>
 
-                            <div class="modal-body">
+                          <div class="modal-body">
 
                             <iframe src="waiver-dashboard.php" width="1100" height="500" frameborder="0"></iframe>
-            
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
+
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -269,14 +269,52 @@ if (isset($_SESSION['useremail'])) {
             <!-- Neutral Count -->
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card revenue-card">
-                  <div class="card-body" data-bs-target="#parentmodal" data-bs-toggle="modal">
-                    <h5 class="card-title">Parent Concent</h5>
+                <div class="card-body" data-bs-target="#parentmodal" data-bs-toggle="modal">
+                  <h5 class="card-title">Parent Concent</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-file-earmark-arrow-up-fill" style="color: #4154f1;"></i>
+                    </div>
+                    <!-- modal for parent -->
+                    <div class="modal fade" id="parentmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"> Edit Student Records </h5>
+                            <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            </button>
+                          </div>
+
+                          <div class="modal-body">
+
+                            <iframe src="concent-dashboard.php" width="1100" height="500" frameborder="0"></iframe>
+
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ps-3">
+                      <h6><?php echo $total_concent; ?></h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Negative Count -->
+            <div class="col-xxl-4 col-xl-12">
+              <div class="card info-card customers-card">
+                  <div class="card-body" data-bs-target="#medicalmodal" data-bs-toggle="modal">
+                    <h5 class="card-title">Health Examination Card</h5>
                     <div class="d-flex align-items-center">
                       <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-file-earmark-arrow-up-fill" style="color: #4154f1;"></i>
+                        <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
                       </div>
-                      <!-- modal for parent -->
-                    <div class="modal fade" id="parentmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                       <!-- modal for health exam card -->
+                    <div class="modal fade" id="medicalmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -287,7 +325,7 @@ if (isset($_SESSION['useremail'])) {
 
                             <div class="modal-body">
 
-                            <iframe src="concent-dashboard.php" width="1100" height="500" frameborder="0"></iframe>
+                            <iframe src="medical-dashboard.php" width="1100" height="500" frameborder="0"></iframe>
             
                             </div>
                             <div class="modal-footer">
@@ -297,47 +335,47 @@ if (isset($_SESSION['useremail'])) {
                       </div>
                     </div>
                       <div class="ps-3">
-                        <h6><?php echo $total_concent; ?></h6>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-            </div>
-
-            <!-- Negative Count -->
-            <div class="col-xxl-4 col-xl-12">
-              <div class="card info-card customers-card">
-                <a href="concent-dashboard.php">
-                  <div class="card-body">
-                    <h5 class="card-title">Health Examination Card</h5>
-                    <div class="d-flex align-items-center">
-                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
-                      </div>
-                      <div class="ps-3">
                         <h6><?php echo $total_medical; ?></h6>
                       </div>
                     </div>
                   </div>
-                </a>
               </div>
             </div>
 
             <div class="col-xxl-4 col-xl-12">
               <div class="card info-card customers-card">
-                <a href="contract-dashboard.php">
-                  <div class="card-body">
+                  <div class="card-body" data-bs-target="#contractmodal" data-bs-toggle="modal">
                     <h5 class="card-title">OJT Contract</h5>
                     <div class="d-flex align-items-center">
                       <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                         <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
                       </div>
+                       <!-- modal for parent -->
+                    <div class="modal fade" id="contractmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"> Edit Student Records </h5>
+                            <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            </button>
+                          </div>
+
+                            <div class="modal-body">
+
+                            <iframe src="contract-dashboard.php" width="1100" height="500" frameborder="0"></iframe>
+            
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
                       <div class="ps-3">
                         <h6><?php echo $total_contract; ?></h6>
                       </div>
                     </div>
                   </div>
-                </a>
               </div>
             </div>
 
