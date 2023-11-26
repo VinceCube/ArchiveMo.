@@ -186,7 +186,7 @@ function analyzeSentiment($text)
             <h1>Narrative Report</h1>
             <p>(PDF copy)</p>
             <form action="narrative.php" method="POST" autocomplete="off" enctype="multipart/form-data">
-                <textarea rows="5" name="abstract" id="abstract" placeholder="Summary" class="form-control form-control-border summernote" required ></textarea>
+                <textarea rows="5" name="abstract" id="abstract" placeholder="Experience on your OJT" class="form-control form-control-border summernote" required ></textarea>
                 <br>
                 <?php $currentDate = date('m/d/Y'); ?>
                 <input type="hidden" name="date" value="<?php echo $currentDate; ?>">
