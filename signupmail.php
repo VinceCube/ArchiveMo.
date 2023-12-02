@@ -323,8 +323,77 @@ if (isset($_SESSION['message'])) {
                 $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
 
                 $mail->Subject = "ArchiveMo. Verification code";
-                $mail->Body = "This is your verificatio number: <h1>" . $verification_code . "</h1>. You can use it to verify your account to " . "<h3>ArchiveMo.</h3>";
-
+                $mail->Body =
+                                        "
+                                        <html>
+                                        <head>
+                                            <style>
+                                                body {
+                                                    font-family: 'Poppins', sans-serif;
+                                                    background-color: #f4f4f4;
+                                                    color: #222;
+                                                    margin: 0;
+                                                    padding: 0;
+                                                }
+                                                .container {
+                                                    max-width: 500px;
+                                                    margin: 0 auto;
+                                                    padding: 20px;
+                                                    background-color: #fff;
+                                                    border-radius: 10px;
+                                                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                                    border: 1px solid #e8e8e8;
+                                                    border-radius: 20px;
+                                                    box-shadow: 4px 4px 8px #999;
+                                                    position: relative;
+                                                    z-index: 1;
+                                                }
+                                                .logo {
+                                                    background-color: #F5A623;
+                                                    text-align: center;
+                                                    width: 100%;
+                                                    height: auto;
+                                                    padding: 10px 0;
+                                                    border-radius: 25px 25px 0 0;
+                                                    position: relative;
+                                                    z-index: 2;
+                                                }
+                                                h2 {
+                                                    color: #fff;
+                                                    font-size: 2rem;
+                                                    font-family: 'Poppins', sans-serif;
+                                                }
+                                                h1 {
+                                                    color: #F5A623;
+                                                    text-align: center;
+                                                    font-size: 3rem;
+                                                    font-family: 'Poppins', sans-serif;
+                                                }
+                                                p {
+                                                    color: #333;
+                                                    font-family: 'Poppins', sans-serif;
+                                                }
+                                                span {
+                                                    color: #222;
+                                                }
+                                            </style>
+                                        </head>
+                                        <body>
+                                            <div class='container'>
+                                                <div class='logo'>
+                                                    <h2>ArchiveMo<span>.</span></h2>
+                                                </div>
+                                                <p>Dear Ms/Mr. " . $firstName . " " . $lastName .",</p>
+                                                <p>To finish setting up your Microsoft account, we just need to make sure this email address is yours. To verify your email address use this security code:</p>
+                                                <h1>" . $verification_code . "</h1>
+                                                <p>You can use it to verify your account on ArchiveMo. If you didn't request this code, you can safely ignore this email. Someone else might have typed your email address by mistake.</p>
+                                                <p>Thanks,</p>
+                                                <p style='color: #F5A623;'><strong>ArchiveMo Team</strong></p>
+                                            </div>
+                                        </body>
+                                        </html>
+                                        
+";
                 $mail->send();
 
                 $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
