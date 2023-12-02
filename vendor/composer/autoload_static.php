@@ -11,11 +11,13 @@ class ComposerStaticInit7b2003a1db3b978c7b928013fe3161f0
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Stichoza\\GoogleTranslate\\' => 25,
             'Sentiment\\' => 10,
         ),
@@ -33,6 +35,10 @@ class ComposerStaticInit7b2003a1db3b978c7b928013fe3161f0
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
         'Stichoza\\GoogleTranslate\\' => 
         array (
             0 => __DIR__ . '/..' . '/stichoza/google-translate-php/src',
@@ -43,8 +49,8 @@ class ComposerStaticInit7b2003a1db3b978c7b928013fe3161f0
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -64,6 +70,16 @@ class ComposerStaticInit7b2003a1db3b978c7b928013fe3161f0
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'S' => 
+        array (
+            'Smalot\\PdfParser\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/smalot/pdfparser/src',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
@@ -73,6 +89,7 @@ class ComposerStaticInit7b2003a1db3b978c7b928013fe3161f0
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit7b2003a1db3b978c7b928013fe3161f0::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit7b2003a1db3b978c7b928013fe3161f0::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit7b2003a1db3b978c7b928013fe3161f0::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit7b2003a1db3b978c7b928013fe3161f0::$classMap;
 
         }, null, ClassLoader::class);

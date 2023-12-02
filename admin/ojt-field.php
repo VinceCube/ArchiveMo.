@@ -202,59 +202,158 @@ if (isset($_SESSION['useremail'])) {
         <section class="section dashboard">
             <div class="row">
 
-                <!-- Left side columns -->
                 <div class="col-lg-13">
                     <div class="row">
+                        <!-- Positive Count -->
 
-                        
-                            <!-- Recent Sales change to data of the students -->
-                            <div class="col-12">
-                                <div class="card recent-sales overflow-auto">
+                        <div class="col-xxl-4 col-md-6">
+                            <div class="card info-card sales-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">On-going OJT</h5>
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-file-earmark-arrow-up-fill" style="color: #2eca6a;"></i>
+                                        </div>
+                                        
+                                        <div class="ps-3">
+                                            <h6><?php echo $total_waiver; ?></h6><!-- create a php code for the number of students int he system -->
 
-                                    <div class="card-body">
-                                        <h5 class="card-title">Student Records</h5>
-
-                                        <table class="table table-borderless datatable">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Students Name</th>
-                                                    <th>Email</th>
-                                                    <th>Company</th>
-                                                    <th>Position</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-
-                                                $result = mysqli_query($conn, "SELECT * FROM users");
-                                                while ($row = mysqli_fetch_array($result)) {
-
-                                                ?>
-                                                    <tr>
-                                                        <td scope="row"><?php echo $row["id"]; ?></td>
-                                                        <td><?php echo $row["firstname"] . " " . $row["lastname"]; ?></td>
-                                                        <td><?php echo $row["email"]; ?></td>
-                                                        <td><?php echo $row["company"]; ?></td>
-                                                        <td><?php echo $row["position"]; ?></td>
-                                                    </tr>
-                                                <?php
-
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
+                                        </div>
                                     </div>
-
                                 </div>
-                            </div><!-- End Recent Sales -->
-
+                            </div>
                         </div>
-                    </div><!-- End Left side columns -->
 
+                        <!-- Neutral Count -->
+                        <div class="col-xxl-4 col-md-6">
+                            <div class="card info-card revenue-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Programmer</h5>
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-file-earmark-arrow-up-fill" style="color: #4154f1;"></i>
+                                        </div>
+                                        
+                                        <div class="ps-3">
+                                            <h6><?php echo $total_concent; ?></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <!-- Negative Count -->
+                        <div class="col-xxl-4 col-xl-12">
+                            <div class="card info-card customers-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">BPO</h5>
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
+                                        </div>
+                                       
+                                        <div class="ps-3">
+                                            <h6><?php echo $total_medical; ?></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-xxl-4 col-xl-12">
+                            <div class="card info-card customers-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">IT Field</h5>
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
+                                        </div>
+                                       
+                                        <div class="ps-3">
+                                            <h6><?php echo $total_contract; ?></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-4 col-xl-12">
+                            <div class="card info-card customers-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Non-IT</h5>
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
+                                        </div>
+                                        
+                                        <div class="ps-3">
+                                            <h6><?php echo $total_moa; ?></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-4 col-xl-12">
+                            <div class="card info-card customers-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Government</h5>
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
+                                        </div>
+                                        
+                                        <div class="ps-3">
+                                            <h6><?php echo $total_ojt_id; ?></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Recent Sales change to data of the students -->
+                <div class="col-12">
+                    <div class="card recent-sales overflow-auto">
+
+                        <div class="card-body">
+                            <h5 class="card-title">Student Records</h5>
+
+                            <table class="table table-borderless datatable">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Students Name</th>
+                                        <th>Email</th>
+                                        <th>Company</th>
+                                        <th>Position</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+
+                                    $result = mysqli_query($conn, "SELECT * FROM users");
+                                    while ($row = mysqli_fetch_array($result)) {
+
+                                    ?>
+                                        <tr>
+                                            <td scope="row"><?php echo $row["id"]; ?></td>
+                                            <td><?php echo $row["firstname"] . " " . $row["lastname"]; ?></td>
+                                            <td><?php echo $row["email"]; ?></td>
+                                            <td><?php echo $row["company"]; ?></td>
+                                            <td><?php echo $row["position"]; ?></td>
+                                        </tr>
+                                    <?php
+
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
     </main><!-- End #main -->

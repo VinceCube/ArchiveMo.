@@ -1,10 +1,9 @@
 <?php
 session_start();
 include 'dbconn.php';
-if (isset($_SESSION['useremail'])){
-}
-else{
-	header("location: admin-index.php");
+if (isset($_SESSION['useremail'])) {
+} else {
+  header("location: admin-index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -39,12 +38,11 @@ else{
 
   <style>
     @media (max-width: 768px) {
-        .header .logo-name{
-            display: none;
-        }
-        
-    }
+      .header .logo-name {
+        display: none;
+      }
 
+    }
   </style>
 </head>
 
@@ -69,23 +67,23 @@ else{
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-          <?php
-$email = $_SESSION['useremail'];
-$result = mysqli_query($conn, "SELECT * FROM admin WHERE username ='$email'");
+            <?php
+            $email = $_SESSION['useremail'];
+            $result = mysqli_query($conn, "SELECT * FROM admin WHERE username ='$email'");
 
-while($row = mysqli_fetch_array($result)){
+            while ($row = mysqli_fetch_array($result)) {
 
-?>
-          <i class="bi bi-person" style="font-size: 2rem;"></i><!--change it to user profile-->
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $row["username"]; ?></span><!--change it to username-->
+            ?>
+              <i class="bi bi-person" style="font-size: 2rem;"></i><!--change it to user profile-->
+              <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $row["username"]; ?></span><!--change it to username-->
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6><?php echo $row["username"]; ?></h6><!--change to username-->
-              <?php
-}
-?>
+            <?php
+            }
+            ?>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -128,87 +126,106 @@ while($row = mysqli_fetch_array($result)){
         </ol>
       </nav>
     </div><!-- End Page Title -->
-    
+
     <section class="section dashboard">
       <div class="row">
-<!--Waiver Table-->
+        <!--Waiver Table-->
 
-<?php
-if (isset($_GET['id'])) {
-  $id = $_GET['id'];
+        <?php
+        if (isset($_GET['id'])) {
+          $id = $_GET['id'];
 
-  // Find the requested file in the database
-  $sql = "SELECT ojt_id FROM ojt_id WHERE id = ?";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("i", $id);
-  $stmt->execute();
-  $result = $stmt->get_result();
+          // Find the requested file in the database
+          $sql = "SELECT ojt_id FROM ojt_id WHERE id = ?";
+          $stmt = $conn->prepare($sql);
+          $stmt->bind_param("i", $id);
+          $stmt->execute();
+          $result = $stmt->get_result();
 
-  if ($result && $result->num_rows > 0) {
-      $row = $result->fetch_assoc();
-      $filename = $row['ojt_id'];
-      $stmt->close();
+          if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $filename = $row['ojt_id'];
+            $stmt->close();
 
-      $file = '../images/pdf/' . $filename;
+            $file = '../images/pdf/' . $filename;
 
-      // Check if the file exists
-      if (file_exists($file)) {
-          // Set headers for file download
-          header('Content-Type: application/octet-stream');
-          header('Content-Disposition: attachment; filename="' . $filename . '"');
-          header('Content-Length: ' . filesize($file));
-          header('Pragma: public');
-          header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-          header('Expires: 0');
+            // Check if the file exists
+            if (file_exists($file)) {
+              // Set headers for file download
+              header('Content-Type: application/octet-stream');
+              header('Content-Disposition: attachment; filename="' . $filename . '"');
+              header('Content-Length: ' . filesize($file));
+              header('Pragma: public');
+              header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+              header('Expires: 0');
 
-          // Send the file to the browser for download
-          ob_clean();
-          flush();
-          readfile($file);
-          exit;
-      } else {
-          echo 'File not found.';
-      }
-  } else {
-      echo 'Invalid file ID.';
-  }
-}
+              // Send the file to the browser for download
+              ob_clean();
+              flush();
+              readfile($file);
+              exit;
+            } else {
+              echo 'File not found.';
+            }
+          } else {
+            echo 'Invalid file ID.';
+          }
+        }
 
-// Fetch the list of files from the database
-?>
-<div class="col-12">
-              <div class="card recent-sales overflow-auto">
-                <div class="card-body">
-                  <h5 class="card-title">Student ID</h5>
-                  <table class="table datatable">
-                    <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Email</th>
-                      <th>Student ID</th>
-                      <th>Date</th>
-                    </tr> 
-                    </thead>
-                    <tbody>
-                    <?php
-                          $result = mysqli_query($conn, "SELECT * FROM ojt_id");
-                          while($row = mysqli_fetch_array($result)){
-                          ?>
-                      <tr>
-                        <td scope="row"><?php echo $row["id"]; ?></td>
-                        <td scope="row"><?php echo $row["email"]; ?></td>
-                        <td><a href="?id=<?php echo $row['id']; ?>"><?php echo $row['ojt_id'];?></td>
-                        <td scope="row"><?php echo $row["date"]; ?></td>
-                      </tr>
-                      <?php
-                          }
-                          ?>
-                    </tbody>
-                 </table>
-                </div>
+        // Fetch the list of files from the database
+        ?>
+
+        <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" id="close" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-            </div><!-- End Recent Sales -->
+              <div class="modal-body" id="modal-body-content">
+                <!-- Modal content will be dynamically loaded here -->
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="closeAndOpenModalBtn" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              </div>
+            </div>
           </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card recent-sales overflow-auto">
+            <div class="card-body">
+              <h5 class="card-title">Student ID</h5>
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Email</th>
+                    <th>Student ID</th>
+                    <th>Date</th>
+                    <th>View</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $result = mysqli_query($conn, "SELECT * FROM ojt_id");
+                  while ($row = mysqli_fetch_array($result)) {
+                  ?>
+                    <tr>
+                      <td scope="row"><?php echo $row["id"]; ?></td>
+                      <td scope="row"><?php echo $row["email"]; ?></td>
+                      <td><a href="?id=<?php echo $row['id']; ?>"><?php echo $row['ojt_id']; ?></td>
+                      <td scope="row"><?php echo $row["date"]; ?></td>
+                      <td><a href="javascript:void(0);" class="btn btn-primary viewmodal" data-id="<?php echo $row['id']; ?>" data-waiver="<?php echo $row['ojt_id']; ?>">VIEW</a></td>
+                    </tr>
+                  <?php
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div><!-- End Recent Sales -->
+      </div>
     </section>
 
   </main><!-- End #main -->
@@ -234,6 +251,23 @@ if (isset($_GET['id'])) {
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('.viewmodal').on('click', function() {
+        var recordId = $(this).data('id');
+        var waiver = $(this).data('waiver');
+
+        // Update the modal content with the data
+        $('#modal-body-content').html('<iframe src="../images/pdf/' + waiver + '" class="embed-responsive custom-iframe" frameborder="0" style="width: 100%; height: 80vh;"></iframe>');
+
+        // Open the modal
+        $('#viewmodal').modal('show');
+      });
+    });
+  </script>
 
 </body>
 

@@ -184,52 +184,71 @@ if ($result->num_rows > 0) {
 
         // Fetch the list of files from the database
         ?>
-          <div class="col-12">
-            <div class="card recent-sales overflow-auto">
-
-              <div class="card-body">
-                <h5 class="card-title">Narrative Reports</h5>
-                <table class="table table-borderless datatable">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Narrative Reports</th>
-                      <th>Email</th>
-                      <th>Sentiment</th>
-                      <th>Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                    $result = mysqli_query($conn, "SELECT * FROM narrative");
-                    while ($row = mysqli_fetch_array($result)) {
-
-                    ?>
-                      <tr>
-                        <td scope="row"><?php echo $row["id"]; ?></td>
-                        <td><a href="?id=<?php echo $row['id']; ?>"><?php echo $row['file_name']; ?></td>
-                        <td><?php echo $row["user"]; ?></td>
-                        <td>
-                          <?php
-                          if ($row["sentiment_result"] == "Negative") {
-                            echo "<p style='color:red; background-color: rgba(255, 0, 0, 0.384); border-radius: 2px; padding: 2px;'>" . $row["sentiment_result"] . "</p>";
-                          } else if ($row["sentiment_result"] == "Positive") {
-                            echo "<p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px;'>" . $row["sentiment_result"] . "</p>";
-                          } else {
-                            echo "<p style='color:orange; background-color: rgba(255, 166, 0, 0.371); border-radius: 2px; padding: 2px;'>" . $row["sentiment_result"] . "</>";
-                          }
-                          ?>
-                        </td>
-                        <td><?php echo $row["date"]; ?></td>
-                      </tr>
-                  <?php
-                    }
-                  ?>
-                  </tbody>
-                </table>
+        <!-- narrative viewer -->
+        <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" id="close" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" id="modal-body-content">
+                <!-- Modal content will be dynamically loaded here -->
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="closeAndOpenModalBtn" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
               </div>
             </div>
-          </div><!-- End Recent Sales -->
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card recent-sales overflow-auto">
+
+            <div class="card-body">
+              <h5 class="card-title">Narrative Reports</h5>
+              <table class="table table-borderless datatable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Narrative Reports</th>
+                    <th>Email</th>
+                    <th>Sentiment</th>
+                    <th>Date</th>
+                    <th>View</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $result = mysqli_query($conn, "SELECT * FROM narrative");
+                  while ($row = mysqli_fetch_array($result)) {
+
+                  ?>
+                    <tr>
+                      <td scope="row"><?php echo $row["id"]; ?></td>
+                      <td><a href="?id=<?php echo $row['id']; ?>"><?php echo $row['file_name']; ?></td>
+                      <td><?php echo $row["user"]; ?></td>
+                      <td>
+                        <?php
+                        if ($row["sentiment_result"] == "Negative") {
+                          echo "<p style='color:red; background-color: rgba(255, 0, 0, 0.384); border-radius: 2px; padding: 2px;'>" . $row["sentiment_result"] . "</p>";
+                        } else if ($row["sentiment_result"] == "Positive") {
+                          echo "<p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px;'>" . $row["sentiment_result"] . "</p>";
+                        } else {
+                          echo "<p style='color:orange; background-color: rgba(255, 166, 0, 0.371); border-radius: 2px; padding: 2px;'>" . $row["sentiment_result"] . "</>";
+                        }
+                        ?>
+                      </td>
+                      <td><?php echo $row["date"]; ?></td>
+                      <td><a href="javascript:void(0);" class="btn btn-primary viewmodal" data-id="<?php echo $row['id']; ?>" data-waiver="<?php echo $row['file_name']; ?>">VIEW</a></td>
+                    </tr>
+                  <?php
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div><!-- End Recent Sales -->
       </section><!-- End About Section -->
 
     </main>
@@ -257,6 +276,22 @@ if ($result->num_rows > 0) {
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('.viewmodal').on('click', function() {
+          var recordId = $(this).data('id');
+          var waiver = $(this).data('waiver');
+
+          // Update the modal content with the data
+          $('#modal-body-content').html('<iframe src="../images/pdf/' + waiver + '" class="embed-responsive custom-iframe" frameborder="0" style="width: 100%; height: 80vh;"></iframe>');
+
+          // Open the modal
+          $('#viewmodal').modal('show');
+        });
+      });
+    </script>
 
   </body>
 

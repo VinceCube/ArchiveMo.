@@ -1,6 +1,7 @@
 {
     "require": {
         "davmixcool/php-sentiment-analyzer": "^1.2",
-        "stichoza/google-translate-php": "^5.1"
+        "stichoza/google-translate-php": "^5.1",
+        "smalot/pdfparser": "^2.7"
     }
 }

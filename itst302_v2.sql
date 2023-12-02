@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2023 at 12:08 AM
+-- Generation Time: Nov 30, 2023 at 01:31 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -59,10 +59,7 @@ CREATE TABLE `concent` (
 --
 
 INSERT INTO `concent` (`id`, `email`, `concent`, `date`) VALUES
-(1, 'asd', 'asd', ''),
-(2, '0320-0677@lspu.edu.ph', '5841_CUBE_FORM G.pdf', ''),
-(3, '0320-0677@lspu.edu.ph', '2667_CUBE_FORM G.pdf', ''),
-(4, '0320-0677@lspu.edu.ph', '2081_', '');
+(1, 'vincearviecube1011@gmail.com', '8693_384433662_1286754318700616_8484363913609480979_n.jpg', '11/16/2023');
 
 -- --------------------------------------------------------
 
@@ -82,7 +79,7 @@ CREATE TABLE `contract` (
 --
 
 INSERT INTO `contract` (`id`, `email`, `contract`, `date`) VALUES
-(1, '0320-0333@lspu.edu.ph', '6589_GALERO, ANGELA KAYE ALAD .pdf', '07/08/2023');
+(1, 'vincearviecube1011@gmail.com', '8457_VhonnCube.png', '11/16/2023');
 
 -- --------------------------------------------------------
 
@@ -102,7 +99,7 @@ CREATE TABLE `medical` (
 --
 
 INSERT INTO `medical` (`id`, `email`, `medical_cert`, `date`) VALUES
-(1, '0320-0333@lspu.edu.ph', '8191_GALERO, ANGELA KAYE ALAD .pdf', '07/08/2023');
+(1, 'vincearviecube1011@gmail.com', '1499_394019256_1286729228663962_5790648442207856836_n.png', '11/16/2023');
 
 -- --------------------------------------------------------
 
@@ -122,7 +119,7 @@ CREATE TABLE `moa` (
 --
 
 INSERT INTO `moa` (`id`, `email`, `moa`, `date`) VALUES
-(1, '0320-0333@lspu.edu.ph', '4967_2022 JLSS Reply Slip (Annex B).pdf', '07/08/2023');
+(1, 'vincearviecube1011@gmail.com', '7432_394019256_1286729228663962_5790648442207856836_n.png', '11/16/2023');
 
 -- --------------------------------------------------------
 
@@ -144,10 +141,12 @@ CREATE TABLE `narrative` (
 --
 
 INSERT INTO `narrative` (`id`, `file_name`, `user`, `sentiment`, `sentiment_result`, `date`) VALUES
-(1, '2748_SPES-FORM-2-JAMES.docx', '0320-0677@lspu.edu.ph', 'sad', 'Negative', '07/08/2023'),
-(2, '7420_GALERO, ANGELA KAYE ALAD .pdf', '0320-0333@lspu.edu.ph', 'awesome amazing cool', 'Positive', '07/08/2023'),
-(3, '9079_GALERO, ANGELA KAYE ALAD .pdf', '0320-0677@lspu.edu.ph', 'This narrative report presents a firsthand account of the challenges encountered by small business owners in a competitive market. Through personal narratives and reflective analysis, this report sheds light on the daunting obstacles and adversities faced by entrepreneurs striving to establish and sustain their ventures. The narratives capture the struggles, setbacks, and disappointments experienced by small business owners, highlighting the harsh realities that often overshadow their aspirations and efforts. This report serves as a wake-up call to policymakers, stakeholders, and support organizations, urging them to address the pressing issues faced by small business owners and to create a more conducive environment for their success.', 'Negative', '07/08/2023'),
-(4, '7937_GALERO, ANGELA KAYE ALAD .pdf', '0320-0677@lspu.edu.ph', 'Oh my god your so fucking good', 'Positive', '07/08/2023');
+(1, '6253_Huang G. Dynamic Trio. Building Web Applications...React, Next.js, Tailwind 2023.pdf', '0320-0333@lspu.edu.ph', 'Amazing experience but not so good i feeling lonely although i have friends with me. sometimes i wanna give up but hey i made it. im just happy.', 'Positive', '10/22/2023'),
+(2, '2047_Broadening_the_DebateThe_Pros_and_Cons_of_Globaliz.pdf', 'arvinceignacio1011@gmail.com', 'Awesome and cool. i had so much fun', 'Positive', '11/11/2023'),
+(3, '3709_Backup-codes-0320-0677.txt', 'vincearviecube1011@gmail.com', 'awesome', 'Positive', '11/16/2023'),
+(4, '8038_DSWD.png', 'vincearviecube1011@gmail.com', 'nice one', 'Positive', '11/16/2023'),
+(5, '4330_384433662_1286754318700616_8484363913609480979_n.jpg', 'vincearviecube1011@gmail.com', 'try again', 'Neutral', '11/16/2023'),
+(6, '9257_ccsfest2023-be2932f4-7612-4e04-b0e4-f92840c02b4b.jpg', 'vincearviecube1011@gmail.com', 'last one and im done', 'Neutral', '11/16/2023');
 
 -- --------------------------------------------------------
 
@@ -167,7 +166,7 @@ CREATE TABLE `ojt_id` (
 --
 
 INSERT INTO `ojt_id` (`id`, `email`, `ojt_id`, `date`) VALUES
-(1, '0320-0333@lspu.edu.ph', '6298_2022 JLSS Regional Qualifiers Guide (Annex C).pdf', '07/08/2023');
+(1, 'vincearviecube1011@gmail.com', '6072_394019256_1286729228663962_5790648442207856836_n.png', '11/16/2023');
 
 -- --------------------------------------------------------
 
@@ -187,8 +186,11 @@ CREATE TABLE `records` (
 --
 
 INSERT INTO `records` (`id`, `email`, `waiver`, `date`) VALUES
-(1, '0320-0677@lspu.edu.ph', 'CUBE_FORM C.pdf', ''),
-(2, '0320-0333@lspu.edu.ph', '5696_EDUK.pdf', '07/08/2023');
+(1, '0320-0333@lspu.edu.ph', '2179_Huang G. Dynamic Trio. Building Web Applications...React, Next.js, Tailwind 2023.pdf', '10/23/2023'),
+(2, '0320-0677@lspu.edu.ph', '8952_Backup-codes-0320-0677.txt', '11/16/2023'),
+(3, 'vincearviecube1011@gmail.com', '2963_Backup-codes-0320-0677.txt', '11/16/2023'),
+(4, 'vincearviecube1011@gmail.com', '1840_384433662_1286754318700616_8484363913609480979_n.jpg', '11/16/2023'),
+(5, 'vincearviecube1011@gmail.com', '3295_DSWD.png', '11/16/2023');
 
 -- --------------------------------------------------------
 
@@ -207,20 +209,31 @@ CREATE TABLE `users` (
   `specialization` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `contact` varchar(255) NOT NULL,
+  `company` varchar(255) NOT NULL,
+  `position` varchar(255) NOT NULL,
   `email` text NOT NULL,
   `password` varchar(255) NOT NULL,
-  `profile` varchar(255) NOT NULL
+  `profile` varchar(255) NOT NULL,
+  `ver_code` text NOT NULL,
+  `verified_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `birthday`, `age`, `student_id`, `course`, `specialization`, `address`, `contact`, `email`, `password`, `profile`) VALUES
-(1, 'Vince Arvie', 'Cube', 'October 11, 2001', '21', '0320677', 'BS Information Technology', 'WMAD', 'Alaminos, Laguna', '09450875898', '0320-0677@lspu.edu.ph', 'cube', 'profile.png'),
-(2, 'Andrea Megan', 'Cornejo', 'MAY 11, 2023', '21', '0320-0533', 'BS Information Technology', 'WMAD', 'Alaminos, Laguna', '09876543212', 'asdds@gmail.com', '123', '10.png'),
-(4, 'Jasmin', 'Apao Jusi', 'October 1, 2001', '21', '0320-0566', 'BS Information Technology', 'WMAD', 'San Pablo, Laguna', '0987654312', 'asadsa@gmail.com', 'asd', '2.png'),
-(6, 'Arvince', 'Ignacio', 'October 11, 2001', '21', '03200677', 'BS Information Technology', 'WMAD', 'Blk. 4 Lot 4 Lynville Homes', '09876541234', '0320-0333@lspu.edu.ph', '123', 'profile.png');
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `birthday`, `age`, `student_id`, `course`, `specialization`, `address`, `contact`, `company`, `position`, `email`, `password`, `profile`, `ver_code`, `verified_at`) VALUES
+(2, 'Andrea Megan', 'Cornejo', '2023-10-01', '21', '0320-0533', 'BS Information Technology', 'WMAD', 'Alaminos, Laguna', '09876543212', 'Converge', 'Software Developer', 'asdds@gmail.com', '123', '10.png', '', NULL),
+(6, 'Arvince', 'Ignacio', '2001-10-11', '21', '03200677', 'BS Information Technology', 'WMAD', 'Blk. 4 Lot 4 Lynville Homes', '09876543212', 'Accenture', 'Web Developer', '0320-0333@lspu.edu.ph', 'cube', 'profile.png', '', NULL),
+(8, 'Arvince', 'Ignacio', '2023-07-10', '21', '03200311', 'BS Information Technology', 'WMAD', 'Blk. 4 Lot 4 Lynville Homes', '0987654321', 'PLDT', 'Network Engineer', '0320-0311@lspu.edu.ph', '123', 'profile.png', '', NULL),
+(9, 'Vince Arive', 'Cube', '2023-07-10', '21', '03200211', 'BS Information Technology', 'WMAD', 'Blk. 4 Lot 4 Lynville Homes', '0987654312', 'Accenture', 'Associate Software Engineer', '0320-0211@lspu.edu.ph', '123', 'profile.png', '', NULL),
+(10, 'Arvince', 'Ignacio', '2023-07-01', '21', '03200200', 'BS Information Technology', 'AMG', 'Blk. 4 Lot 4 Lynville Homes', '09876543213', 'Converge', 'IT Support', '0320-0200@lspu.edu.ph', '123', 'profile.png', '', NULL),
+(11, 'Megan', 'Cornejo', '2023-07-10', '21', '03211234', 'BS Information Technology', 'WMAD', 'alaminos, laguna', '09876543213', 'Converge', 'Accountant', '0321-1234@lspu.edu.ph', '123', 'logo.png', '', NULL),
+(62, 'Andrea Megan', 'Cornejo', '2023-10-31', '21', '0320-0533', 'BS Information Technology', 'WMAD', 'Alaminos, Laguna', '0987643245', 'Laguna State Polytechnic University San Pablo Campus', 'Student', '0320-0533@lspu.edu.ph', '$2y$10$xd6muiL7xnBfqH8Lz3wDgOwlJTTMfcIp/nMb4rKq65f8NrtaqtoMa', '', '204908', '2023-10-31 18:07:04'),
+(63, 'Vince', 'Cube', '', '', '', '', '', 'Alaminos, Laguna', '', 'Laguna State Polytechnic University San Pablo Campus', '', 'vincearviecube1011@gmail.com', '$2y$10$HokAJNQgGm/e4EtLmlGjCuUCRqoXJoAG6OS/IxX1VGoYbvogSZmPK', '', '207069', '2023-11-16 09:43:52'),
+(64, 'Vince', 'Cube', '2023-11-23', '21', '0320-0677', 'BS Computer Science', 'SMP', 'Alaminos, Laguna', '09876543212', 'Laguna State Polytechnic University San Pablo Campus', 'pio', '0320-0677@lspu.edu.ph', '$2y$10$ZMmPZPBHTQbElc4eIzGem.SAoO6zVjmhko34Zzaw.1ekpsh3uDeW2', '', '351195', NULL),
+(73, 'Cube', 'Vhea Mhel', '', '21', '0320-0445', 'BS Information Technology', 'SMP', 'Alaminos, Laguna', '09765412345', 'Laguna State Polytechnic University San Pablo Campus', 'PIO', 'vheamhelcube05@gmail.com', '$2y$10$qEG72LjJwWkZemAEt92emeBsRDAIkh5gJTJ2Owfs5jZWn8jfYfAYy', '', '310993', NULL),
+(74, 'Vince', 'Cube', '', '21', '0320-0445', 'BS Computer Science', 'SMP', 'Alaminos, Laguna', '09765412345', 'Laguna State Polytechnic University San Pablo Campus', 'PIO', '0323-3726@lspu.edu.ph', '$2y$10$v6dLplxpoE4FOWWCclAkV.c7LCWGiWRITaNn4UctdDH32E8.MjkgS', '', '316891', NULL);
 
 --
 -- Indexes for dumped tables
@@ -294,7 +307,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `concent`
 --
 ALTER TABLE `concent`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `contract`
@@ -318,7 +331,7 @@ ALTER TABLE `moa`
 -- AUTO_INCREMENT for table `narrative`
 --
 ALTER TABLE `narrative`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `ojt_id`
@@ -330,13 +343,13 @@ ALTER TABLE `ojt_id`
 -- AUTO_INCREMENT for table `records`
 --
 ALTER TABLE `records`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

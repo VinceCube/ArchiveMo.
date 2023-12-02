@@ -122,90 +122,112 @@ while($row = mysqli_fetch_array($result)){
 <?php
 
 if (isset($_SESSION['message'])) {
-	echo $_SESSION['message'];
-	unset($_SESSION['message']);
+    echo $_SESSION['message'];
+    unset($_SESSION['message']);
 }
 
 include './vendor/autoload.php';
-Use Sentiment\Analyzer;
+use Sentiment\Analyzer;
+use Stichoza\GoogleTranslate\GoogleTranslate;
+use Smalot\PdfParser\Parser;
+
+$analyzer = new Analyzer();
+$tr = new GoogleTranslate('en'); // Translates into English
 
 if (isset($_POST['submit'])) {
+    $text = $_POST['abstract'];
+    $date = $_POST['date'];
+    $pname = rand(1000, 10000) . "_" . $_FILES["file"]["name"];
+    $tname = $_FILES["file"]["tmp_name"];
 
-$text = $_POST['abstract'];
-$date = $_POST['date'];
-$pname = rand(1000, 10000) . "_" . $_FILES["file"]["name"];
-$tname = $_FILES["file"]["tmp_name"];
-$sentiment = analyzeSentiment($text);
+    // Extract text from PDF
+    $pdfText = extractTextFromPdf($tname);
 
-$upload_dir = 'images/pdf';
-move_uploaded_file($tname, $upload_dir . '/' . $pname);
+    // Perform sentiment analysis on the extracted text
+    $sentiment = analyzeSentiment($pdfText);
 
-$sql = "INSERT INTO `narrative` (`id`, `file_name`, `user`, `sentiment`, `sentiment_result`, `date`) VALUES (NULL, ?, ?, ?, ?, ?)";
-$stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "sssss", $pname, $email, $text, $sentiment, $date);
+    // Translate the user input to English
+    $translated_text = $tr->setSource('fil')->setTarget('en')->translate($text);
 
+    $upload_dir = 'images/pdf';
+    move_uploaded_file($tname, $upload_dir . '/' . $pname);
 
-if (mysqli_stmt_execute($stmt)) {
-  $_SESSION['message'] = '   ` <script>
-      swal("Success!", "Narrative Report successfully submitted.", "success");
-      </script>`';
-          echo "<script>window.location.href = 'narrative_view.php';</script>";
-            exit(); // Add this line to stop further execution
-} else {
-    echo "Error: " . mysqli_error($conn);
-}
-mysqli_stmt_close($stmt);
+    $sql = "INSERT INTO `narrative` (`id`, `file_name`, `user`, `sentiment`, `sentiment_result`, `date`) VALUES (NULL, ?, ?, ?, ?, ?)";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "sssss", $pname, $email, $translated_text, $sentiment, $date);
+
+    if (mysqli_stmt_execute($stmt)) {
+        $_SESSION['message'] = '   ` <script>
+          swal("Success!", "Narrative Report successfully submitted.", "success");
+          </script>`';
+        echo "<script>window.location.href = 'narrative_view.php';</script>";
+        exit(); // Add this line to stop further execution
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
+    mysqli_stmt_close($stmt);
 }
 
 function analyzeSentiment($text)
 {
-
-  $analyzer = new Analyzer(); 
-  $output_text = $analyzer->getSentiment($text);
-  if ($output_text['pos']*100 > $output_text['neg']*100) {
-    return 'Positive';
-  } elseif ($output_text['neg']*100 > $output_text['pos']*100) {
-    return 'Negative';
-  } else{
-    return 'Neutral';
-  }
-
+    $analyzer = new Analyzer();
+    $output_text = $analyzer->getSentiment($text);
+    if ($output_text['pos'] * 100 > $output_text['neg'] * 100) {
+        return 'Positive';
+    } elseif ($output_text['neg'] * 100 > $output_text['pos'] * 100) {
+        return 'Negative';
+    } else {
+        return 'Neutral';
+    }
 }
+
+function extractTextFromPdf($pdfPath)
+{
+    $parser = new Parser();
+    $pdf    = $parser->parseFile($pdfPath);
+
+    return $pdf->getText();
+}
+
 ?>
-  <section id="narrative" class="narrative">
-      <div class="container">
+<section id="narrative" class="narrative">
+    <div class="container">
         <div class="section-title">
-          <h2>Narrative Report</h2>
-          </div>
+            <h2>Narrative Report</h2>
+        </div>
 
         <div class="row" data-aos="fade-up">
             <div class="col-lg-2 blank_page">
-            <i class="bx bx-file"></i>
+                <i class="bx bx-file"></i>
             </div>
-          <div class="col-lg-8  form-narrative">
-            <h1>Narrative Report</h1>
-            <p>(PDF copy)</p>
-            <form action="narrative.php" method="POST" autocomplete="off" enctype="multipart/form-data">
-                <textarea rows="5" name="abstract" id="abstract" placeholder="Experience on your OJT" class="form-control form-control-border summernote" required ></textarea>
-                <br>
-                <?php $currentDate = date('m/d/Y'); ?>
-                <input type="hidden" name="date" value="<?php echo $currentDate; ?>">
-                <input type="file" name="file" id="file"><!--narrative-->
-                  <ul>
-                <li><a href="narrative_view.php"><i class="bi bi-folder2-open">&nbsp View Narrative</i></a></li>
-            <li>
-              <label for="upload">
-                <i class="bi bi-upload"></i>
-                &nbsp Upload</label>
-            <input type="submit" name="submit" id="upload"></li>
-                  </ul>
-                
-            </form>
-          </div>
+            <div class="col-lg-8  form-narrative">
+                <h1>Narrative Report</h1>
+                <p>(PDF copy only)</p>
+                <form action="narrative.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+                    <textarea rows="5" name="abstract" id="abstract" placeholder="Experience on your OJT"
+                        class="form-control form-control-border summernote" required></textarea>
+                    <br>
+                    <?php $currentDate = date('m/d/Y'); ?>
+                    <input type="hidden" name="date" value="<?php echo $currentDate; ?>">
+                    <input type="file" name="file" id="file"><!--narrative-->
+                    <ul>
+                        <li><a href="narrative_view.php"><i class="bi bi-folder2-open">&nbsp View Narrative</i></a>
+                        </li>
+                        <li>
+                            <label for="upload">
+                                <i class="bi bi-upload"></i>
+                                &nbsp Upload</label>
+                            <input type="submit" name="submit" id="upload">
+                        </li>
+                    </ul>
+
+                </form>
+            </div>
         </div>
-           
-          </div>
-    </section><!-- End About Section -->
+
+    </div>
+</section>
+
 
   </main><!-- End #main -->
 
