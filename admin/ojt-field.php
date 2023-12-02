@@ -212,11 +212,12 @@ if (isset($_SESSION['useremail'])) {
                                     <h5 class="card-title">On-going OJT</h5>
                                     <div class="d-flex align-items-center">
                                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-file-earmark-arrow-up-fill" style="color: #2eca6a;"></i>
+                                            <i class="bi bi-people-fill" style="color: #2eca6a;"></i>
+                                            
                                         </div>
                                         
                                         <div class="ps-3">
-                                            <h6><?php echo $total_waiver; ?></h6><!-- create a php code for the number of students int he system -->
+                                            <h6><?php echo $total_users; ?></h6><!-- create a php code for the number of students int he system -->
 
                                         </div>
                                     </div>
@@ -231,11 +232,12 @@ if (isset($_SESSION['useremail'])) {
                                     <h5 class="card-title">Programmer</h5>
                                     <div class="d-flex align-items-center">
                                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-file-earmark-arrow-up-fill" style="color: #4154f1;"></i>
+                                        <i class="bi bi-pc-display" style="color: #4154f1;"></i>
+                                            
                                         </div>
                                         
                                         <div class="ps-3">
-                                            <h6><?php echo $total_concent; ?></h6>
+                                            <h6><?php echo $total_programmers; ?></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -249,11 +251,11 @@ if (isset($_SESSION['useremail'])) {
                                     <h5 class="card-title">BPO</h5>
                                     <div class="d-flex align-items-center">
                                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
+                                        <i class="bi bi-headset"  style="color: #ff4425;"></i>
                                         </div>
                                        
                                         <div class="ps-3">
-                                            <h6><?php echo $total_medical; ?></h6>
+                                            <h6><?php echo $total_bpo; ?></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -266,11 +268,11 @@ if (isset($_SESSION['useremail'])) {
                                     <h5 class="card-title">IT Field</h5>
                                     <div class="d-flex align-items-center">
                                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
+                                        <i class="bi bi-motherboard-fill" style="color: #ff4425;"></i>
                                         </div>
                                        
                                         <div class="ps-3">
-                                            <h6><?php echo $total_contract; ?></h6>
+                                            <h6><?php echo $total_it_field; ?></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -283,11 +285,11 @@ if (isset($_SESSION['useremail'])) {
                                     <h5 class="card-title">Non-IT</h5>
                                     <div class="d-flex align-items-center">
                                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
+                                        <i class="bi bi-layout-wtf"  style="color: #ff4425;"></i>
                                         </div>
                                         
                                         <div class="ps-3">
-                                            <h6><?php echo $total_moa; ?></h6>
+                                            <h6><?php echo $total_non_it; ?></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -300,11 +302,11 @@ if (isset($_SESSION['useremail'])) {
                                     <h5 class="card-title">Government</h5>
                                     <div class="d-flex align-items-center">
                                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
+                                        <i class="bi bi-flag-fill" style="color: #ff4425;"></i>
                                         </div>
                                         
                                         <div class="ps-3">
-                                            <h6><?php echo $total_ojt_id; ?></h6>
+                                            <h6><?php echo $total_users_government; ?></h6>
                                         </div>
                                     </div>
                                 </div>

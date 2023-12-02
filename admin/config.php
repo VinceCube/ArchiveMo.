@@ -95,5 +95,62 @@ include 'dbconn.php';
     $row = mysqli_fetch_assoc($result);
     $total_neutral = $row['count'];
 
+//fetching and counting the programmer users
+
+    $count_program = "SELECT COUNT(*) AS count FROM `users` WHERE 
+    (position IN ('Programmer', 'Software Developer', 'Web Developer', 'Game Developer', 'Web Designer', 'Project Manager', 'Software Engineer', 'Associate Software Engineer', 'Network Administrator', 'Support Specialist', 'IT Consultant', 'IT Support', 'System Specialist', 'Quality Assurance Tester'))";
+    $result = mysqli_query($conn, $count_program);
+    $row = mysqli_fetch_assoc($result);
+    $total_programmers = $row['count'];
+
+    //fetching and counting all the users oin bpo industry
+    $count_bpo = "SELECT COUNT(*) AS count FROM `users` WHERE 
+    (position IN ('Customer Service Representative', 'Technical Support Specialist', 'Sales Representative', 'Team Leader', 'Quality Assurance Analyst', 'Operations Manager', 'Training and Development Specialist', 'Workforce Management Analyst', 'Recruitment Specialist', 'Data Entry Specialist', 'Accountant',
+    'Customer Retention Specialist', 'Human Resources (HR) Generalist', 'Process Improvement Analyst', 'Client Services Manager', 'Language Specialist (Multilingual Support)', 'IT Help Desk Support', 'Business Analyst (BPO)', 'Fraud Analyst', 'Social Media Customer Support Representative'))";
+    $result = mysqli_query($conn, $count_bpo);
+    $row = mysqli_fetch_assoc($result);
+    $total_bpo = $row['count'];
+
+    /* counting all the users that is in IT FIELD */
+    $count_it_field = "SELECT COUNT(*) AS count FROM `users` WHERE 
+    (position IN ('Customer Service Representative', 'Technical Support Specialist', 'Sales Representative', 'Team Leader', 'Quality Assurance Analyst', 'Operations Manager', 'Training and Development Specialist', 'Workforce Management Analyst', 'Recruitment Specialist', 'Data Entry Specialist', 'Accountant',
+    'Customer Retention Specialist', 'Human Resources (HR) Generalist', 'Process Improvement Analyst', 'Client Services Manager', 'Language Specialist (Multilingual Support)', 'IT Help Desk Support', 'Business Analyst (BPO)', 'Fraud Analyst', 'Social Media Customer Support Representative', 'Programmer', 
+    'Software Developer', 'Web Developer', 'Game Developer', 'Web Designer', 'Project Manager', 'Software Engineer', 'Associate Software Engineer', 'Network Administrator', 'Support Specialist', 'IT Consultant', 'IT Support', 'System Specialist', 'Quality Assurance Tester',
+    'Database Administrator', 'Systems Analyst', 'Cybersecurity Analyst', 'Cloud Solutions Architect', 'Data Scientist', 'DevOps Engineer', 'UI/UX Designer', 'Artificial Intelligence (AI) Engineer', 'Mobile App Developer', 'Network Engineer', 'Computer Systems Manager', 'IT Trainer', 'Blockchain Developer'))";
+    $result = mysqli_query($conn, $count_it_field);
+    $row = mysqli_fetch_assoc($result);
+    $total_it_field = $row['count'];
+
+    /* fetching and counting all the users that is not the IT field */
+    $count_not_it = "SELECT COUNT(*) as count FROM users 
+    WHERE position NOT IN (
+        'Customer Service Representative', 'Technical Support Specialist', 'Sales Representative', 'Team Leader', 'Quality Assurance Analyst', 'Operations Manager', 'Training and Development Specialist', 'Workforce Management Analyst', 'Recruitment Specialist', 'Data Entry Specialist', 'Accountant',
+        'Customer Retention Specialist', 'Human Resources (HR) Generalist', 'Process Improvement Analyst', 'Client Services Manager', 'Language Specialist (Multilingual Support)', 'IT Help Desk Support', 'Business Analyst (BPO)', 'Fraud Analyst', 'Social Media Customer Support Representative', 'Programmer', 
+        'Software Developer', 'Web Developer', 'Game Developer', 'Web Designer', 'Project Manager', 'Software Engineer', 'Associate Software Engineer', 'Network Administrator', 'Support Specialist', 'IT Consultant', 'IT Support', 'System Specialist', 'Quality Assurance Tester',
+        'Database Administrator', 'Systems Analyst', 'Cybersecurity Analyst', 'Cloud Solutions Architect', 'Data Scientist', 'DevOps Engineer', 'UI/UX Designer', 'Artificial Intelligence (AI) Engineer', 'Mobile App Developer', 'Network Engineer', 'Computer Systems Manager', 'IT Trainer', 'Blockchain Developer'
+    )
+    ";
+    $result = mysqli_query($conn, $count_not_it);
+    $row = mysqli_fetch_assoc($result);
+    $total_non_it = $row['count'];
+
+    /* fetching all the users that is in the government organization */
+    $count_government =
+"SELECT COUNT(*) as count
+    FROM users
+    WHERE company LIKE '%Philippine Government%'
+       OR company LIKE '%Government Agency%'
+       OR company LIKE '%Bureau%'
+       OR company LIKE '%Department%'
+       OR company LIKE '%Office%'
+       OR company LIKE '%Commission%' AND  LOWER(company) LIKE '%philippine government%'
+       OR LOWER(company) LIKE '%government agency%'
+       OR LOWER(company) LIKE '%bureau%'
+       OR LOWER(company) LIKE '%department%'
+       OR LOWER(company) LIKE '%office%'
+       OR LOWER(company) LIKE '%commission%'";
+   $result = mysqli_query($conn, $count_government);
+   $row = mysqli_fetch_assoc($result);
+   $total_users_government = $row['count'];
 
 ?>
