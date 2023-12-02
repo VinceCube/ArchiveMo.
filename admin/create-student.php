@@ -357,7 +357,7 @@ require 'vendor/phpmailer/src/SMTP.php';
                                     $query = "SELECT email FROM users WHERE email = '$email'";
                                     $result = mysqli_query($conn, $query);
 
-                                    if(mysqli_num_rows($result) > 0){
+                                    if(mysqli_num_rows($result) > 0 && strpos($email, 'lspu.edu.ph') === false ){
                                        echo '
                                         <script>
                                         swal("Sign in Failed!", "The email is already in use. Please use other email.", "warning");
