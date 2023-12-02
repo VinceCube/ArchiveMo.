@@ -397,7 +397,7 @@ require 'vendor/phpmailer/src/SMTP.php';
                                                     padding: 0;
                                                 }
                                                 .container {
-                                                    max-width: 600px;
+                                                    max-width: 500px;
                                                     margin: 0 auto;
                                                     padding: 20px;
                                                     background-color: #fff;
