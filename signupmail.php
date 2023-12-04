@@ -384,7 +384,7 @@ if (isset($_SESSION['message'])) {
                                                     <h2>ArchiveMo<span>.</span></h2>
                                                 </div>
                                                 <p>Dear Ms/Mr. " . $firstName . " " . $lastName .",</p>
-                                                <p>To finish setting up your Microsoft account, we just need to make sure this email address is yours. To verify your email address use this security code:</p>
+                                                <p>To finish setting up your ArchiveMo account, we just need to make sure this email address is yours. To verify your email address use this security code:</p>
                                                 <h1>" . $verification_code . "</h1>
                                                 <p>You can use it to verify your account on ArchiveMo. If you didn't request this code, you can safely ignore this email. Someone else might have typed your email address by mistake.</p>
                                                 <p>Thanks,</p>

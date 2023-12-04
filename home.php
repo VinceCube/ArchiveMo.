@@ -41,6 +41,7 @@ if ($result->num_rows > 0){
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <script src="assets/vendor/testLocalJs/sweetalert.min.js"></script>
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -227,7 +228,7 @@ while($row = mysqli_fetch_array($result)){
           </div>
 
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form action="contact.php" method="post" role="form" class="info" style="min-height: 640px;">
               <div class="row">
                 <div class="form-group col-md-6">
                   <label for="name">Your Name</label>
@@ -235,7 +236,7 @@ while($row = mysqli_fetch_array($result)){
                 </div>
                 <div class="form-group col-md-6">
                   <label for="name">Your Email</label>
-                  <input type="email" class="form-control" name="email" id="email" required>
+                  <input type="email" class="form-control" name="contemail" id="email" required>
                 </div>
               </div>
               <div class="form-group">
@@ -246,17 +247,10 @@ while($row = mysqli_fetch_array($result)){
                 <label for="name">Message</label>
                 <textarea class="form-control" name="message" rows="10" required></textarea>
               </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+              <div class="text-center"><button type="submit" class="btn btn-primary" name="send" style="margin: 20px 0; background-color: #F5A623; border: none;">Send Message</button></div>
             </form>
           </div>
-
         </div>
-
       </div>
     </section><!-- End Contact Section -->
 
@@ -288,14 +282,13 @@ while($row = mysqli_fetch_array($result)){
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <?php
+</body>
+<?php
 }
 else{
    #echo "0 results";
 }
 
 ?>
-
-</body>
 
 </html>
