@@ -308,21 +308,21 @@ if (isset($_SESSION['message'])) {
                 $mail->isSMTP();
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
-                $mail->Username = 'archivemo2023@gmail.com'; //gmail account
-                $mail->Password = 'vevhmorfldvdibwc'; //password
+                $mail->Username = ''; //gmail account
+                $mail->Password = ''; //password
                 $mail->SMTPSecure = 'ssl';
                 $mail->Port = 465;
 
-                $mail->setFrom('archivemo2023@gmail.com', 'ArchiveMo.'); //gmail from you
+                $mail->setFrom('', ''); //gmail from you ex. abcd@gmail.come, ABCD webstie
 
                 $mail->addAddress($_POST["email"]);
-                $mail->addReplyTo('0320-0677@lspu.edu.ph', 'ArchiveMo. Admin');
+                $mail->addReplyTo('', '');//gmail from you ex. abcd@gmail.come, ABCD admin
 
                 $mail->isHTML(true);
 
                 $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
 
-                $mail->Subject = "ArchiveMo. Verification code";
+                $mail->Subject = "";// change the subject ex. ABCD verification
                 $mail->Body =
                                         "
                                         <html>
