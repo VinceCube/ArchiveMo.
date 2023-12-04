@@ -19,15 +19,15 @@ if (isset($_POST['send'])) {
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'archivemo2023@gmail.com'; //gmail account
-    $mail->Password = 'vevhmorfldvdibwc'; //password
+    $mail->Username = ''; //gmail account
+    $mail->Password = ''; //password
     $mail->SMTPSecure = 'ssl';
     $mail->Port = 465;
 
     $mail->setFrom($contactemail, $name); //gmail from you
 
-    $mail->addAddress('archivemo2023@gmail.com');
-    $mail->addReplyTo('0320-0677@lspu.edu.ph', 'ArchiveMo. Admin');
+    $mail->addAddress('');//add your gmail account
+    $mail->addReplyTo('', '');//same here ex. abcd@gmail.com , ABCD Website
 
     $mail->isHTML(true);
 
