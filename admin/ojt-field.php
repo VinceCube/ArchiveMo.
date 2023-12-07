@@ -127,6 +127,19 @@ if (isset($_SESSION['useremail'])) {
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" href="course.php">
+                <i class="bi bi-terminal-fill"></i><span>Course / Program</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="specialization.php">
+                            <i class="bi bi-circle"></i><span>Specialization</span>
+                        </a>
+                    </li><!-- End OJT Records Nav -->
+                </ul>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#tables-nav" href="narrative-dashboard.php">
                     <i class="bi bi-layout-text-window-reverse"></i><span>Narrative Reports</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
@@ -161,28 +174,38 @@ if (isset($_SESSION['useremail'])) {
                 <a class="nav-link collapsed" data-bs-target="#tables-nav" href="student_info.php">
                     <i class="bi bi-file-earmark-person-fill"></i><span>Student Information</span>
                 </a>
-
+            </li>
             </li><!-- End Tables Nav -->
 
             <li class="nav-item">
-                <a class="nav-link" data-bs-target="#tables-nav" href="ojt-field.php">
-                    <i class="bi bi-person-lines-fill"></i><span>OJT Field</span>
+                <a class="nav-link" data-bs-target="#charts-nav" href="ojt-field.php">
+                    <i class="bi bi-person-lines-fill"></i><span>OJT Field</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-
+                <ul id="charts-nav" class="nav-content" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="company.php">
+                            <i class="bi bi-circle"></i><span>Company</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="program.php">
+                            <i class="bi bi-circle"></i><span>Programming Position</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="bpo.php">
+                            <i class="bi bi-circle"></i><span>BPO Position</span>
+                        </a>
+                    </li>
+                </ul>
             </li><!-- End Create Student Nav -->
-
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#tables-nav" href="create-student.php">
                     <i class="bi bi-person-square"></i><span>Create User</span>
                 </a>
-
             </li><!-- End Create Student Nav -->
-
-
-
         </ul>
-
     </aside><!-- End Sidebar-->
 
     <main id="main" class="main">
@@ -192,7 +215,7 @@ if (isset($_SESSION['useremail'])) {
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
-                    <li class="breadcrumb-item active">Student Information</li>
+                    <li class="breadcrumb-item active">OJT Field</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -204,7 +227,6 @@ if (isset($_SESSION['useremail'])) {
 
                 <div class="col-lg-13">
                     <div class="row">
-                        <!-- Positive Count -->
 
                         <div class="col-xxl-4 col-md-6">
                             <div class="card info-card sales-card">
@@ -213,9 +235,9 @@ if (isset($_SESSION['useremail'])) {
                                     <div class="d-flex align-items-center">
                                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                             <i class="bi bi-people-fill" style="color: #2eca6a;"></i>
-                                            
+
                                         </div>
-                                        
+
                                         <div class="ps-3">
                                             <h6><?php echo $total_users; ?></h6><!-- create a php code for the number of students int he system -->
 
@@ -225,17 +247,16 @@ if (isset($_SESSION['useremail'])) {
                             </div>
                         </div>
 
-                        <!-- Neutral Count -->
                         <div class="col-xxl-4 col-md-6">
                             <div class="card info-card revenue-card">
                                 <div class="card-body">
                                     <h5 class="card-title">Programmer</h5>
                                     <div class="d-flex align-items-center">
                                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-pc-display" style="color: #4154f1;"></i>
-                                            
+                                            <i class="bi bi-pc-display" style="color: #4154f1;"></i>
+
                                         </div>
-                                        
+
                                         <div class="ps-3">
                                             <h6><?php echo $total_programmers; ?></h6>
                                         </div>
@@ -244,16 +265,15 @@ if (isset($_SESSION['useremail'])) {
                             </div>
                         </div>
 
-                        <!-- Negative Count -->
                         <div class="col-xxl-4 col-xl-12">
                             <div class="card info-card customers-card">
                                 <div class="card-body">
                                     <h5 class="card-title">BPO</h5>
                                     <div class="d-flex align-items-center">
                                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-headset"  style="color: #ff4425;"></i>
+                                            <i class="bi bi-headset" style="color: #ff4425;"></i>
                                         </div>
-                                       
+
                                         <div class="ps-3">
                                             <h6><?php echo $total_bpo; ?></h6>
                                         </div>
@@ -268,9 +288,9 @@ if (isset($_SESSION['useremail'])) {
                                     <h5 class="card-title">IT Field</h5>
                                     <div class="d-flex align-items-center">
                                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-motherboard-fill" style="color: #ff4425;"></i>
+                                            <i class="bi bi-motherboard-fill" style="color: #ff4425;"></i>
                                         </div>
-                                       
+
                                         <div class="ps-3">
                                             <h6><?php echo $total_it_field; ?></h6>
                                         </div>
@@ -285,9 +305,9 @@ if (isset($_SESSION['useremail'])) {
                                     <h5 class="card-title">Non-IT</h5>
                                     <div class="d-flex align-items-center">
                                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-layout-wtf"  style="color: #ff4425;"></i>
+                                            <i class="bi bi-layout-wtf" style="color: #ff4425;"></i>
                                         </div>
-                                        
+
                                         <div class="ps-3">
                                             <h6><?php echo $total_non_it; ?></h6>
                                         </div>
@@ -302,9 +322,9 @@ if (isset($_SESSION['useremail'])) {
                                     <h5 class="card-title">Government</h5>
                                     <div class="d-flex align-items-center">
                                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-flag-fill" style="color: #ff4425;"></i>
+                                            <i class="bi bi-flag-fill" style="color: #ff4425;"></i>
                                         </div>
-                                        
+
                                         <div class="ps-3">
                                             <h6><?php echo $total_users_government; ?></h6>
                                         </div>
@@ -320,7 +340,7 @@ if (isset($_SESSION['useremail'])) {
                     <div class="card recent-sales overflow-auto">
 
                         <div class="card-body">
-                            <h5 class="card-title">Student Records</h5>
+                            <h5 class="card-title">OJT Records</h5>
 
                             <table class="table table-borderless datatable">
                                 <thead>
@@ -330,14 +350,14 @@ if (isset($_SESSION['useremail'])) {
                                         <th>Email</th>
                                         <th>Company</th>
                                         <th>Position</th>
+                                        <th>Type</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
+                                    $result = mysqli_query($conn, "SELECT users.id, users.firstname, users.lastname, users.email, users.company, users.position, company.organization FROM users LEFT JOIN company ON users.company = company.organization");
 
-                                    $result = mysqli_query($conn, "SELECT * FROM users");
                                     while ($row = mysqli_fetch_array($result)) {
-
                                     ?>
                                         <tr>
                                             <td scope="row"><?php echo $row["id"]; ?></td>
@@ -345,9 +365,17 @@ if (isset($_SESSION['useremail'])) {
                                             <td><?php echo $row["email"]; ?></td>
                                             <td><?php echo $row["company"]; ?></td>
                                             <td><?php echo $row["position"]; ?></td>
+                                            <td>
+                                                <?php
+                                                if ($row['organization'] !== $row['company']) {
+                                                    echo "<p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px;'>Private</p>";
+                                                } else {
+                                                    echo "<p style='color:orange; background-color: rgba(255, 166, 0, 0.371); border-radius: 2px; padding: 2px;'>Government</p>";
+                                                }
+                                                ?>
+                                            </td>
                                         </tr>
                                     <?php
-
                                     }
                                     ?>
                                 </tbody>

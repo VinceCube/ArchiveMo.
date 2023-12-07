@@ -3,7 +3,7 @@ session_start();
 include 'dbconn.php';
 if (isset($_SESSION['useremail'])) {
 } else {
-  header("location: admin-index.php");
+  echo "<script>window.location.href='admin-index.php';</script>";
 }
 ?>
 <!DOCTYPE html>
@@ -43,7 +43,6 @@ if (isset($_SESSION['useremail'])) {
       }
 
     }
-    
   </style>
 </head>
 
@@ -129,10 +128,23 @@ if (isset($_SESSION['useremail'])) {
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" href="course.php">
+          <i class="bi bi-terminal-fill"></i><span>Course / Program</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="specialization.php">
+              <i class="bi bi-circle"></i><span>Specialization</span>
+            </a>
+          </li><!-- End OJT Records Nav -->
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-bs-target="#tables-nav" href="narrative-dashboard.php">
           <i class="bi bi-layout-text-window-reverse"></i><span>Narrative Reports</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="tables-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
+        <ul id="tables-nav" class="nav-content " data-bs-parent="#sidebar-nav">
           <li>
             <a href="narrative-test.php">
               <i class="bi bi-circle"></i><span>Download Narrative</span>
@@ -143,7 +155,7 @@ if (isset($_SESSION['useremail'])) {
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" href="ojt-dashboard.php">
-        <i class="bi bi-card-list"></i><span>OJT Records</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-card-list"></i><span>OJT Records</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
@@ -161,28 +173,40 @@ if (isset($_SESSION['useremail'])) {
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" href="student_info.php">
-        <i class="bi bi-file-earmark-person-fill"></i><span>Student Information</span>
+          <i class="bi bi-file-earmark-person-fill"></i><span>Student Information</span>
         </a>
-
+      </li>
       </li><!-- End Tables Nav -->
 
-<li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#tables-nav" href="ojt-field.php">
-                <i class="bi bi-person-lines-fill"></i><span>OJT Field</span>
-                </a>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" href="ojt-field.php">
+          <i class="bi bi-person-lines-fill"></i><span>OJT Field</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="company.php">
+              <i class="bi bi-circle"></i><span>Company</span>
+            </a>
+          </li>
+          <li>
+            <a href="program.php">
+              <i class="bi bi-circle"></i><span>Programming Position</span>
+            </a>
+          </li>
+          <li>
+            <a href="bpo.php">
+              <i class="bi bi-circle"></i><span>BPO Position</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Create Student Nav -->
 
-            </li><!-- End Create Student Nav -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" href="create-student.php">
           <i class="bi bi-person-square"></i><span>Create User</span>
         </a>
-
       </li><!-- End Create Student Nav -->
-
-
-
     </ul>
-
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
@@ -269,64 +293,65 @@ if (isset($_SESSION['useremail'])) {
               </div>
 
             </div>
-            </div>
+          </div>
         </div>
-      <div class="col-12">
-              <div class="card recent-sales overflow-auto download-div">
 
-                <div class="card-body download">
-                <h5 class="card-title">Narrative Reports Download</h5>
-                  <table class="table table-borderless datatable">
-                    <thead>
+        <div class="col-12">
+          <div class="card recent-sales overflow-auto download-div">
+            <div class="card-body download">
+              <h5 class="card-title">Narrative Reports Download</h5>
+              <form method="post" action="export2.php">
+                <input type="submit" name="export" value="Export to CSV" class="btn btn-primary" style="float: right; margin-top: -50px;">
+              </form>
+              <table class="table table-borderless datatable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Narrative Reports</th>
+                    <th>Email</th>
+                    <th>Fullname</th>
+                    <th>Sentiment</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $result = mysqli_query($conn, "SELECT * FROM narrative LEFT JOIN users ON narrative.user = users.email");
+                  while ($row = mysqli_fetch_array($result)) {
+                  ?>
                     <tr>
-                      <th>#</th>
-                      <th>Narrative Reports</th>
-                      <th>Email</th>
-                      <th>Fullname</th>
-                      <th>Sentiment</th>
-                      <th>Date</th>
-                    </tr> 
-                    </thead>
-                    <tbody>
-                    <?php
-                          $result = mysqli_query($conn, "SELECT * FROM narrative LEFT JOIN users ON narrative.user = users.email");
-                          while($row = mysqli_fetch_array($result)){
-                          ?>
-                      <tr>
-                        <td scope="row"><?php echo $row["id"]; ?></td>
-                        <td><?php echo $row['file_name'];?></td>
-                        <td><?php echo $row["user"]; ?></td>
-                        <td><?php echo $row['firstname'] . " " . $row['lastname'];?></td>
-                        <td>
-                        <?php 
-                         if($row["sentiment_result"] == "Negative"){
-                          echo "<p style='color:red; background-color: rgba(255, 0, 0, 0.384); border-radius: 2px; padding: 2px 10px;'>". $row["sentiment_result"] ."</p>";
-                          }
-                          else if($row["sentiment_result"] == "Positive"){
-                            echo "<p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px 10px;'>". $row["sentiment_result"] ."</p>";
-                          }
-                          else{
-                            echo "<p style='color:orange; background-color: rgba(255, 166, 0, 0.371); border-radius: 2px; padding: 2px 10px;'>". $row["sentiment_result"] ."</>";
-                          }
-                          ?>    
-                      
+                      <td scope="row"><?php echo $row["id"]; ?></td>
+                      <td><?php echo $row['file_name']; ?></td>
+                      <td><?php echo $row["user"]; ?></td>
+                      <td><?php echo $row['firstname'] . " " . $row['lastname']; ?></td>
+                      <td>
+                        <?php
+                        if ($row["sentiment_result"] == "Negative") {
+                          echo "<p style='color:red; background-color: rgba(255, 0, 0, 0.384); border-radius: 2px; padding: 2px 10px;'>" . $row["sentiment_result"] . "</p>";
+                        } else if ($row["sentiment_result"] == "Positive") {
+                          echo "<p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px 10px;'>" . $row["sentiment_result"] . "</p>";
+                        } else {
+                          echo "<p style='color:orange; background-color: rgba(255, 166, 0, 0.371); border-radius: 2px; padding: 2px 10px;'>" . $row["sentiment_result"] . "</>";
+                        }
+                        ?>
+
                       </td>
-                        <td><?php echo $row["date"]; ?></td>
-                      </tr>
-                      <?php
+                      <td><?php echo $row["date"]; ?></td>
+                    </tr>
+                  <?php
 
-                          }
-                          ?>
-                    </tbody>
-                 </table>
-                </div>
-
-              </div>
-            </div><!-- End Recent Sales -->
-
-          
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
 
           </div>
+        </div><!-- End Recent Sales -->
+
+
+
+      </div>
     </section>
 
   </main><!-- End #main -->

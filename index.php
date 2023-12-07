@@ -40,12 +40,12 @@ if (isset($_SESSION['useremail'])) {
 		$email = $_POST['email'];
 		$user_password = $_POST['password'];
 
-		$sql = "SELECT * FROM users WHERE email = '" . $email . "'";
+		$sql = "SELECT * FROM users WHERE email = '" . $email . "' AND approved = '1' ";
 		$result = mysqli_query($conn, $sql);
 
 		if ($result->num_rows == 0) {
 			$_SESSION['message'] = '   ` <script>
-	swal("Login Failed!", "Email incorrect. Please check the email before logging in.", "warning");
+	swal("Login Failed!", "Please wait untill someone approved your sign up.", "warning");
 	</script>`';
 			echo "<script>window.location.href = 'index.php';</script>";
 			exit();
@@ -72,7 +72,7 @@ if (isset($_SESSION['useremail'])) {
 						</div>
 						<div class="modal-body">
 						
-							Please verify your email. <a href="email-verify.php?email=' . $email . '">Click here to verify</a>
+							Please verify your email. <a href="email-verify.php?email=' . $email . '" target="_blank">Click here to verify</a>
 						</div>
 					</div>
 				</div>
@@ -120,7 +120,7 @@ if (isset($_SESSION['useremail'])) {
 						<i class="fas fa-user"></i>
 					</div>
 					<div class="div">
-						<h5>Username</h5>
+						<h5>Email</h5>
 						<input type="text" class="input" name="email">
 					</div>
 				</div>
@@ -134,11 +134,11 @@ if (isset($_SESSION['useremail'])) {
 					</div>
 				</div>
 				<div class="col-12" style="text-align: right; padding: 3px 0;">
-						 <a href="index.php" class="forgot" style="font-size: small;">Forgot Password?</a>
+						 <a href="forgot_pass.php" class="forgot" style="font-size: small;">Forgot Password?</a>
                     </div>
 				<input type="submit" class="button" value="Login" name="login">
 				<div class="col-12">
-                      <p style="font-size: small;">Does'nt have an accout? <a href="signupmail.php" style="font-size: small;">Sign up here</a></p>
+                      <p style="font-size: small;">Doesn't have an accout? <a href="signupmail.php" style="font-size: small;">Sign up here</a></p>
                     </div>
 			</form>
 		</div>

@@ -3,7 +3,7 @@ session_start();
 include 'dbconn.php';
 if (isset($_SESSION['useremail'])) {
 } else {
-  header("location: admin-index.php");
+  echo "<script>window.location.href='admin-index.php';</script>";
 }
 ?>
 <!DOCTYPE html>
@@ -38,17 +38,19 @@ if (isset($_SESSION['useremail'])) {
 
   <style>
     iframe {
-            width: 100%;
-            height: 100vh;
-            border: 0;
-        }
+      width: 100%;
+      height: 100vh;
+      border: 0;
+    }
+
     @media (max-width: 768px) {
       .header .logo-name {
         display: none;
       }
+
       iframe {
-        height: 80vh; 
-    }
+        height: 80vh;
+      }
 
     }
   </style>
@@ -136,6 +138,19 @@ if (isset($_SESSION['useremail'])) {
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" href="course.php">
+          <i class="bi bi-terminal-fill"></i><span>Course / Program</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="specialization.php">
+              <i class="bi bi-circle"></i><span>Specialization</span>
+            </a>
+          </li><!-- End OJT Records Nav -->
+        </ul>
+      </li>
+
+      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" href="narrative-dashboard.php">
           <i class="bi bi-layout-text-window-reverse"></i><span>Narrative Reports</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -160,7 +175,7 @@ if (isset($_SESSION['useremail'])) {
           </li>
           <li>
             <a href="concent-dashboard.php">
-              <i class="bi bi-circle"></i><span>Download Parent Concent</span>
+              <i class="bi bi-circle"></i><span>Download Parent Consent</span>
             </a>
           </li>
       </li>
@@ -196,10 +211,26 @@ if (isset($_SESSION['useremail'])) {
     </li><!-- End Tables Nav -->
 
     <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#tables-nav" href="ojt-field.php">
-        <i class="bi bi-person-lines-fill"></i><span>OJT Field</span>
+      <a class="nav-link collapsed" data-bs-target="#charts-nav" href="ojt-field.php">
+        <i class="bi bi-person-lines-fill"></i><span>OJT Field</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
-
+      <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="company.php">
+            <i class="bi bi-circle"></i><span>Company</span>
+          </a>
+        </li>
+        <li>
+          <a href="program.php">
+            <i class="bi bi-circle"></i><span>Programming Position</span>
+          </a>
+        </li>
+        <li>
+          <a href="bpo.php">
+            <i class="bi bi-circle"></i><span>BPO Position</span>
+          </a>
+        </li>
+      </ul>
     </li><!-- End Create Student Nav -->
 
     <li class="nav-item">
@@ -249,7 +280,7 @@ if (isset($_SESSION['useremail'])) {
                       <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"> Edit Student Records </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Waiver</h5>
                             <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close">
                             </button>
                           </div>
@@ -278,7 +309,7 @@ if (isset($_SESSION['useremail'])) {
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card revenue-card">
                 <div class="card-body" data-bs-target="#parentmodal" data-bs-toggle="modal">
-                  <h5 class="card-title">Parent Concent</h5>
+                  <h5 class="card-title">Parent Consent</h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-file-earmark-arrow-up-fill" style="color: #4154f1;"></i>
@@ -288,7 +319,7 @@ if (isset($_SESSION['useremail'])) {
                       <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"> Edit Student Records </h5>
+                            <h5 class="modal-title" id="exampleModalLabel"> Parent Consent </h5>
                             <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close">
                             </button>
                           </div>
@@ -315,149 +346,149 @@ if (isset($_SESSION['useremail'])) {
             <!-- Negative Count -->
             <div class="col-xxl-4 col-xl-12">
               <div class="card info-card customers-card">
-                  <div class="card-body" data-bs-target="#medicalmodal" data-bs-toggle="modal">
-                    <h5 class="card-title">Health Examination Card</h5>
-                    <div class="d-flex align-items-center">
-                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
-                      </div>
-                       <!-- modal for health exam card -->
+                <div class="card-body" data-bs-target="#medicalmodal" data-bs-toggle="modal">
+                  <h5 class="card-title">Health Examination Card</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
+                    </div>
+                    <!-- modal for health exam card -->
                     <div class="modal fade" id="medicalmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"> Edit Student Records </h5>
+                            <h5 class="modal-title" id="exampleModalLabel"> Health Examination Card </h5>
                             <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close">
                             </button>
                           </div>
 
-                            <div class="modal-body">
+                          <div class="modal-body">
 
                             <iframe src="medical-dashboard.php" width="1100" height="500" frameborder="0"></iframe>
-            
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
+
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                      <div class="ps-3">
-                        <h6><?php echo $total_medical; ?></h6>
-                      </div>
+                    <div class="ps-3">
+                      <h6><?php echo $total_medical; ?></h6>
                     </div>
                   </div>
+                </div>
               </div>
             </div>
 
             <div class="col-xxl-4 col-xl-12">
               <div class="card info-card customers-card">
-                  <div class="card-body" data-bs-target="#contractmodal" data-bs-toggle="modal">
-                    <h5 class="card-title">OJT Contract</h5>
-                    <div class="d-flex align-items-center">
-                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
-                      </div>
-                       <!-- modal for parent -->
+                <div class="card-body" data-bs-target="#contractmodal" data-bs-toggle="modal">
+                  <h5 class="card-title">OJT Contract</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
+                    </div>
+                    <!-- modal for parent -->
                     <div class="modal fade" id="contractmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"> Edit Student Records </h5>
+                            <h5 class="modal-title" id="exampleModalLabel"> OJT Contract </h5>
                             <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close">
                             </button>
                           </div>
 
-                            <div class="modal-body">
+                          <div class="modal-body">
 
                             <iframe src="contract-dashboard.php" width="1100" height="500" frameborder="0"></iframe>
-            
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
+
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                      <div class="ps-3">
-                        <h6><?php echo $total_contract; ?></h6>
-                      </div>
+                    <div class="ps-3">
+                      <h6><?php echo $total_contract; ?></h6>
                     </div>
                   </div>
+                </div>
               </div>
             </div>
 
             <div class="col-xxl-4 col-xl-12">
               <div class="card info-card customers-card">
-                  <div class="card-body" data-bs-target="#moamodal" data-bs-toggle="modal">
-                    <h5 class="card-title">MOA</h5>
-                    <div class="d-flex align-items-center">
-                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
-                      </div>
-                       <!-- modal for parent -->
+                <div class="card-body" data-bs-target="#moamodal" data-bs-toggle="modal">
+                  <h5 class="card-title">MOA</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
+                    </div>
+                    <!-- modal for parent -->
                     <div class="modal fade" id="moamodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"> Edit Student Records </h5>
+                            <h5 class="modal-title" id="exampleModalLabel"> MOA </h5>
                             <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close">
                             </button>
                           </div>
 
-                            <div class="modal-body">
+                          <div class="modal-body">
 
                             <iframe src="moa-dashboard.php" width="1100" height="500" frameborder="0"></iframe>
-            
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
+
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                      <div class="ps-3">
-                        <h6><?php echo $total_moa; ?></h6>
-                      </div>
+                    <div class="ps-3">
+                      <h6><?php echo $total_moa; ?></h6>
                     </div>
                   </div>
+                </div>
               </div>
             </div>
 
             <div class="col-xxl-4 col-xl-12">
               <div class="card info-card customers-card">
-                  <div class="card-body" data-bs-target="#studentmodal" data-bs-toggle="modal">
-                    <h5 class="card-title">Registration Certificate</h5>
-                    <div class="d-flex align-items-center">
-                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
-                      </div>
-                       <!-- modal for parent -->
+                <div class="card-body" data-bs-target="#studentmodal" data-bs-toggle="modal">
+                  <h5 class="card-title">Registration Certificate</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-file-earmark-arrow-up-fill" style="color: #ff4425;"></i>
+                    </div>
+                    <!-- modal for parent -->
                     <div class="modal fade" id="studentmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"> Edit Student Records </h5>
+                            <h5 class="modal-title" id="exampleModalLabel"> Registration Certi </h5>
                             <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close">
                             </button>
                           </div>
 
-                            <div class="modal-body">
+                          <div class="modal-body">
 
                             <iframe src="s_id-dashboard.php" width="1100" height="500" frameborder="0"></iframe>
-            
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
+
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                      <div class="ps-3">
-                        <h6><?php echo $total_ojt_id; ?></h6>
-                      </div>
+                    <div class="ps-3">
+                      <h6><?php echo $total_ojt_id; ?></h6>
                     </div>
                   </div>
+                </div>
               </div>
             </div>
           </div>
@@ -465,56 +496,103 @@ if (isset($_SESSION['useremail'])) {
 
         <div class="col-12">
           <div class="card recent-sales overflow-auto">
-
             <div class="card-body">
-              <h5 class="card-title">Student Records</h5>
-
+              <h5 class="card-title">OJT Records</h5>
+              <form method="post" action="export.php">
+                <input type="submit" name="export" value="Export to CSV" class="btn btn-primary" style="float: right; margin-top: -50px;" />
+              </form>
               <table class="table table-borderless datatable">
                 <thead>
                   <tr>
                     <th>#</th>
                     <th>Students Name</th>
-                    <th>Birthdate</th>
-                    <th>Age</th>
-                    <th>Address</th>
-                    <th>Contact Number</th>
                     <th>Student ID</th>
-                    <th>Course</th>
-                    <th>Major</th>
+                    <th>Waiver</th>
+                    <th>Consent</th>
+                    <th>Contract</th>
+                    <th>MOA</th>
+                    <th>Health Examination</th>
+                    <th>Registration Certificate</th>
                     <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
+                  $result = mysqli_query($conn, "SELECT DISTINCT users.email, users.firstname, users.id, users.lastname, users.student_id, records.email AS records_email, concent.email AS concent_email, medical.email AS medical_email, moa.email AS moa_email, contract.email AS contract_email, ojt_id.email AS ojt_id_email
+        FROM users
+        LEFT JOIN records ON users.email = records.email
+        LEFT JOIN concent ON users.email = concent.email
+        LEFT JOIN medical ON users.email = medical.email
+        LEFT JOIN moa ON users.email = moa.email
+        LEFT JOIN contract ON users.email = contract.email
+        LEFT JOIN ojt_id ON users.email = ojt_id.email");
 
-                  $result = mysqli_query($conn, "SELECT DISTINCT users.*, records.email,  concent.email, medical.email FROM users LEFT JOIN records ON users.email = records.email LEFT JOIN concent ON users.email = concent.email LEFT JOIN medical ON users.email = medical.email");
                   while ($row = mysqli_fetch_array($result)) {
-
                   ?>
                     <tr>
                       <td scope="row"><?php echo $row["id"]; ?></td>
                       <td><?php echo $row["firstname"] . " " . $row["lastname"]; ?></td>
-                      <td><?php echo $row["birthday"]; ?></td>
-                      <td><?php echo $row["age"]; ?></td>
-                      <td><?php echo $row["address"]; ?></td>
-                      <td><?php echo $row["contact"]; ?></td>
                       <td><?php echo $row["student_id"]; ?></td>
-                      <td><?php echo $row["course"]; ?></td>
-                      <td><?php echo $row["specialization"]; ?></td>
+                      <td><?php
+                          if ($row['email'] === $row['records_email']) {
+                            echo "<p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px 10px;'> Done</p>";
+                          } else {
+                            echo "<p style='color:orange; background-color: rgba(255, 166, 0, 0.371); border-radius: 2px; padding: 2px 10px;'> Pending</p>";
+                          }
+                          ?></td>
                       <td>
-                      <?php
-
-                      if ($row['email'] != NULL) {
-                        echo "<p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px 10px;'> Finish</p>";
-                      } else {
-                        echo "<p style='color:red; background-color: rgba(255, 0, 0, 0.384); border-radius: 2px; padding: 2px 10px;'> Pending</p>";
-                      }
-                    }
-                      ?>
+                        <?php
+                        if ($row['email'] === $row['concent_email']) {
+                          echo "<p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px 10px;'> Done</p>";
+                        } else {
+                          echo "<p style='color:orange; background-color: rgba(255, 166, 0, 0.371); border-radius: 2px; padding: 2px 10px;'> Pending</p>";
+                        }
+                        ?>
                       </td>
+                      <td>
+                        <?php
+                        if ($row['email'] === $row['contract_email']) {
+                          echo "<p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px 10px;'> Done</p>";
+                        } else {
+                          echo "<p style='color:orange; background-color: rgba(255, 166, 0, 0.371); border-radius: 2px; padding: 2px 10px;'> Pending</p>";
+                        }
+                        ?>
+                      </td>
+                      <td><?php
+                          if ($row['email'] === $row['moa_email']) {
+                            echo "<p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px 10px;'> Done</p>";
+                          } else {
+                            echo "<p style='color:orange; background-color: rgba(255, 166, 0, 0.371); border-radius: 2px; padding: 2px 10px;'> Pending</p>";
+                          }
+                          ?></td>
+                      <td><?php
+                          if ($row['email'] === $row['medical_email']) {
+                            echo "<p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px 10px;'> Done</p>";
+                          } else {
+                            echo "<p style='color:orange; background-color: rgba(255, 166, 0, 0.371); border-radius: 2px; padding: 2px 10px;'> Pending</p>";
+                          }
+                          ?></td>
+                      <td><?php
+                          if ($row['email'] === $row['ojt_id_email']) {
+                            echo "<p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px 10px;'> Done</p>";
+                          } else {
+                            echo "<p style='color:orange; background-color: rgba(255, 166, 0, 0.371); border-radius: 2px; padding: 2px 10px;'> Pending</p>";
+                          }
+                          ?></td>
+                      <td><?php
+                          if ($row['email'] === $row['records_email'] && $row['email'] === $row['moa_email'] && $row['email'] === $row['ojt_id_email'] && $row['email'] === $row['medical_email'] && $row['email'] === $row['contract_email'] && $row['email'] === $row['concent_email']) {
+                            echo "<p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px 10px;'> Finish</p>";
+                          } else {
+                            echo "<p style='color:orange; background-color: rgba(255, 166, 0, 0.371); border-radius: 2px; padding: 2px 10px;'> Pending</p>";
+                          }
+                          ?></td>
                     </tr>
+                  <?php
+                  }
+                  ?>
                 </tbody>
               </table>
+
             </div>
 
           </div>

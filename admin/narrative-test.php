@@ -203,7 +203,6 @@ if ($result->num_rows > 0) {
 
         <div class="col-12">
           <div class="card recent-sales overflow-auto">
-
             <div class="card-body">
               <h5 class="card-title">Narrative Reports</h5>
               <table class="table table-borderless datatable">
@@ -234,7 +233,7 @@ if ($result->num_rows > 0) {
                         } else if ($row["sentiment_result"] == "Positive") {
                           echo "<p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px;'>" . $row["sentiment_result"] . "</p>";
                         } else {
-                          echo "<p style='color:orange; background-color: rgba(255, 166, 0, 0.371); border-radius: 2px; padding: 2px;'>" . $row["sentiment_result"] . "</>";
+                          echo "<p style='color:orange; background-color: rgba(255, 166, 0, 0.371); border-radius: 2px; padding: 2px;'>" . $row["sentiment_result"] . "</p>";
                         }
                         ?>
                       </td>

@@ -129,6 +129,19 @@ if (isset($_SESSION['useremail'])) {
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" href="course.php">
+                <i class="bi bi-terminal-fill"></i><span>Course / Program</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="specialization.php">
+                            <i class="bi bi-circle"></i><span>Specialization</span>
+                        </a>
+                    </li><!-- End OJT Records Nav -->
+                </ul>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#tables-nav" href="narrative-dashboard.php">
                     <i class="bi bi-layout-text-window-reverse"></i><span>Narrative Reports</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
@@ -143,7 +156,7 @@ if (isset($_SESSION['useremail'])) {
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#charts-nav" href="ojt-dashboard.php">
-                <i class="bi bi-card-list"></i><span>OJT Records</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-card-list"></i><span>OJT Records</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
@@ -159,29 +172,42 @@ if (isset($_SESSION['useremail'])) {
                 </ul>
             </li>
 
-
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#tables-nav" href="student_info.php">
-                <i class="bi bi-file-earmark-person-fill"></i><span>Student Information</span>
+                    <i class="bi bi-file-earmark-person-fill"></i><span>Student Information</span>
                 </a>
+            </li>
+            </li><!-- End Tables Nav -->
 
-            </li><!-- End Student Information Nav -->
-
-<li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#tables-nav" href="ojt-field.php">
-                <i class="bi bi-person-lines-fill"></i><span>OJT Field</span>
-                </a>
-
-            </li><!-- End Create Student Nav -->
             <li class="nav-item">
-                <a class="nav-link" data-bs-target="#tables-nav" href="create-student.php">
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" href="ojt-field.php">
+                    <i class="bi bi-person-lines-fill"></i><span>OJT Field</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="company.php">
+                            <i class="bi bi-circle"></i><span>Company</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="program.php">
+                            <i class="bi bi-circle"></i><span>Programming Position</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="bpo.php">
+                            <i class="bi bi-circle"></i><span>BPO Position</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Create Student Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#tables-nav" href="create-student.php">
                     <i class="bi bi-person-square"></i><span>Create User</span>
                 </a>
-
             </li><!-- End Create Student Nav -->
-
         </ul>
-
     </aside><!-- End Sidebar-->
 
     <main id="main" class="main">
@@ -259,9 +285,15 @@ if (isset($_SESSION['useremail'])) {
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Course</label>
                                         <div class="col-md-8 col-lg-9">
                                             <select name="course" id="course" class="form-control">
-                                                <option value="">Select Course</option>
-                                                <option value="BS Information Technology">BS Information Technology</option>
-                                                <option value="BS Computer Science">BS Computer Science</option>
+                                            <option value="">Select Course</option>
+                                            <?php
+                                                $result = mysqli_query($conn, "SELECT * FROM course");
+                                                while($row = mysqli_fetch_assoc($result)){
+                                                ?>
+                                                <option value="<?php echo $row['program']; ?>"><?php echo $row['program']; ?></option>
+                                                <?php
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                     </div>
@@ -269,13 +301,15 @@ if (isset($_SESSION['useremail'])) {
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Specialization</label>
                                         <div class="col-md-8 col-lg-9">
                                             <select name="major" id="major" class="form-control">
-                                                <option value="">Select Major</option>
-                                                <option value="WMAD">WMAD</option>
-                                                <option value="SMP">SMP</option>
-                                                <option value="AMG">AMG</option>
-                                                <option value="NA">NA</option>
-                                                <option value="IS">IS<IS/option>
-                                                <option value="GAV">GAV</option>
+                                                <option value="">Select Specialization</option>
+                                                <?php
+                                                $result = mysqli_query($conn, "SELECT * FROM major");
+                                                while($row = mysqli_fetch_assoc($result)){
+                                                ?>
+                                                <option value="<?php echo $row['specialization']; ?>"><?php echo $row['specialization']; ?></option>
+                                                <?php
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                     </div>

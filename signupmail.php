@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'dbconn.php';
 if (isset($_SESSION['message'])) {
     echo $_SESSION['message'];
@@ -148,7 +149,7 @@ if (isset($_SESSION['message'])) {
                     <div class="card-body">
 
                         <div class="pt-4 pb-2">
-                            <img src="img/logo.png" alt="" class="logo" style="width: 200px; margin: auto;">
+                            <img src="img/logo.png" alt="" class="logo" style="width: 200px; margin: auto; margin-top: -35px;">
                             <h4>Sign up</h4>
                         </div>
 
@@ -193,8 +194,14 @@ if (isset($_SESSION['message'])) {
                                         <label for="course">Course</label>
                                         <select name="course" id="course" class="form-control">
                                             <option value="">Select Course</option>
-                                            <option value="BS Information Technology">BS Information Technology</option>
-                                            <option value="BS Computer Science">BS Computer Science</option>
+                                            <?php 
+                                            $result = mysqli_query($conn, "SELECT program FROM course");
+                                            while($row = mysqli_fetch_assoc($result)){
+                                            ?>
+                                            <option value="<?php echo $row['program'];?>"><?php echo $row['program'];?></option>
+                                            <?php
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
@@ -204,13 +211,15 @@ if (isset($_SESSION['message'])) {
                                     <div class="form-group">
                                         <label for="major">Major/Specialization</label>
                                         <select name="major" id="major" class="form-control">
-                                            <option value="">Select Major</option>
-                                            <option value="WMAD">WMAD</option>
-                                            <option value="SMP">SMP</option>
-                                            <option value="AMG">AMG</option>
-                                            <option value="NA">NA</option>
-                                            <option value="IS">IS</option>
-                                            <option value="GAV">GAV</option>
+                                        <option value="">Select Specialization</option>
+                                            <?php 
+                                            $result = mysqli_query($conn, "SELECT specialization FROM major");
+                                            while($row = mysqli_fetch_assoc($result)){
+                                            ?>
+                                            <option value="<?php echo $row['specialization'];?>"><?php echo $row['specialization'];?></option>
+                                            <?php
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
@@ -238,7 +247,7 @@ if (isset($_SESSION['message'])) {
                             <div class="row">
                                 <div class="col" style="text-align: left;">
                                     <div class="form-group">
-                                        <label for="position">Position/Designation</label>
+                                        <label for="position">OJT Position</label>
                                         <input type="text" class="form-control" name="position" placeholder="Designation">
                                     </div>
                                 </div>
@@ -257,6 +266,16 @@ if (isset($_SESSION['message'])) {
                                         <input type="password" class="form-control" name="pass" placeholder="Password">
                                     </div>
                                 </div>
+                                <div class="col" style="text-align: left;">
+                                    <div class="form-group">
+                                        <label for="password">Confirm Password</label>
+                                        <input type="password" class="form-control" name="confirm_pass" placeholder="Confirm Password">
+                                    </div>
+                                </div>
+
+                                <input type="text" class="form-control" name="approve" value="0" hidden>
+                                
+                                
                                 <div class="col-12 pt-2">
                                     <button type="submit" class="btn btn-primary login" name="create">Sign up</button>
                                 </div>
@@ -278,51 +297,68 @@ if (isset($_SESSION['message'])) {
         require 'admin/vendor/phpmailer/src/Exception.php';
         require 'admin/vendor/phpmailer/src/PHPMailer.php';
         require 'admin/vendor/phpmailer/src/SMTP.php';
+        
         if (isset($_POST['create'])) {
+            $studentemail = $_POST['email'];
+        
+            // Check if the email ends with @lspu.edu.ph
+            if (strtolower(substr($studentemail, -12)) === '@lspu.edu.ph') {
+                // Continue with the signup logic
+        
+                $firstName = $_POST['firstName'];
+                $lastName = $_POST['lastName'];
+                $birthDay = $_POST['birth'];
+                $age = $_POST['age'];
+                $studentID = $_POST['student-ID'];
+                $course = $_POST['course'];
+                $major = $_POST['major'];
+                $address = $_POST['address'];
+                $contact = $_POST['contact'];
+                $company = $_POST['company'];
+                $position = $_POST['position'];
+                $confirmPass = $_POST['confirm_pass'];
+                $password = $_POST['pass'];
+                $approved = $_POST['approve'];
+        
+                $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
+                $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
+                
+                $query = "SELECT email FROM users WHERE email = '$studentemail'";
+                                    $result = mysqli_query($conn, $query);
 
-            $firstName = $_POST['firstName'];
-            $lastName = $_POST['lastName'];
-            $birthDay = $_POST['birth'];
-            $age = $_POST['age'];
-            $studentID = $_POST['student-ID'];
-            $course = $_POST['course'];
-            $major = $_POST['major'];
-            $address = $_POST['address'];
-            $contact = $_POST['contact'];
-            $company = $_POST['company'];
-            $position = $_POST['position'];
-            $email = $_POST['email'];
-            $password = $_POST['pass'];
-
-            $query = "SELECT email FROM users WHERE email = '$email'";
-            $result = mysqli_query($conn, $query);
-
-            if (mysqli_num_rows($result) > 0) {
-                echo '
+                                    if(mysqli_num_rows($result) > 0){
+                                       echo '
                                         <script>
                                         swal("Sign in Failed!", "The email is already in use. Please use other email.", "warning");
                                         </script>';
-            } else {
-                $mail = new PHPMailer(true);
+                } else if($password != $confirmPass){
+                    echo '<script>
+                    swal("Error!", "Error, passord did not match. Please enter your password correctly.", "error");
+                </script>';
+                }else{
+        
+                $sql = "INSERT INTO `users` (`id`, `firstname`, `lastname`, `birthday`, `age`, `student_id`, `course`, `specialization`, `address`, `contact`, `company`, `position`, `email`, `password`, `ver_code`, `verified_at`, `approved`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?)";
+                $stmt = mysqli_prepare($conn, $sql);
+                mysqli_stmt_bind_param($stmt, "sssssssssssssss", $firstName, $lastName, $birthDay, $age, $studentID, $course, $major, $address, $contact, $company, $position, $studentemail, $encrypted_password, $verification_code, $approved);
+                }
+                if (mysqli_stmt_execute($stmt)) {
+                    $mail = new PHPMailer(true);
+        
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'archivemo2023@gmail.com'; // Gmail account
+                    $mail->Password = 'vevhmorfldvdibwc'; // Gmail password
+                    $mail->SMTPSecure = 'ssl';
+                    $mail->Port = 465;
+        
+                    $mail->setFrom('archivemo2023@gmail.com', 'ArchiveMo.');
+                    $mail->addAddress($studentemail);
+                    $mail->addReplyTo('0320-0677@lspu.edu.ph', 'ArchiveMo. Admin');
+                    $mail->isHTML(true);
+        
+                    $mail->Subject = "ArchiveMo. Verification code";
 
-                $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'archivemo2023@gmail.com'; //gmail account
-                $mail->Password = 'vevhmorfldvdibwc'; //password
-                $mail->SMTPSecure = 'ssl';
-                $mail->Port = 465;
-
-                $mail->setFrom('archivemo2023@gmail.com', 'ArchiveMo.'); //gmail from you
-
-                $mail->addAddress($_POST["email"]);
-                $mail->addReplyTo('0320-0677@lspu.edu.ph', 'ArchiveMo. Admin');
-
-                $mail->isHTML(true);
-
-                $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
-
-                $mail->Subject = "ArchiveMo. Verification code";
                 $mail->Body =
                                         "
                                         <html>
@@ -394,31 +430,28 @@ if (isset($_SESSION['message'])) {
                                         </html>
                                         
 ";
-                $mail->send();
-
-                $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
-
-                $sql = "INSERT INTO `users` (`id`, `firstname`, `lastname`, `birthday`, `age`, `student_id`, `course`, `specialization`, `address`, `contact`, `company`, `position`, `email`, `password`, `ver_code`, `verified_at`) VALUES (NULL, '$firstName', '$lastName', '$birthDay', '$age', '$studentID', '$course', '$major', '$address', '$contact', '$company', '$position', '$email', '$encrypted_password', '$verification_code', NULL);";
-
-                $fire = mysqli_query($conn, $sql);
-
-                if ($fire) {
-                    echo
-                    '
-                                            <script>
-                                            swal("Sign up Complete!", "Welcome to ArchiveMo.", "success");
-                                            </script>
-                                        ';
-                } else {
-                    echo '
-                                        <script>
-                                        swal("Something went wrong!", "There is a problem signing up. Try again later", "warning");
-                                        </script>';
-                    exit();
-                }
+                if ($mail->send()) {
+                    echo '<script>
+                    swal("Success!", "Registration Certificate successfully submitted.", "success");
+                </script>';
+            } else {
+                echo '<script>
+            swal("Error!", "Error sending verification email. Please try again later.", "error");
+        </script>';
             }
+        } else {
+            $_SESSION['message'] = 'Error: ' . mysqli_error($conn);
         }
-        ?>
+
+        mysqli_stmt_close($stmt);
+    } else {
+        echo '<script>
+            swal("Error!", "Invalid email address. Use an @lspu.edu.ph email.", "error");
+        </script>';
+        exit();
+    }
+}
+?>
 
     </main>
 

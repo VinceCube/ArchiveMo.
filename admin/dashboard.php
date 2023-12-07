@@ -120,72 +120,96 @@ while($row = mysqli_fetch_array($result)){
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
+        <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item">
-        <a class="nav-link " href="admin-index.php">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav"  href="narrative-dashboard.php">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Narrative Reports</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="narrative-test.php">
-              <i class="bi bi-circle"></i><span>Download Narrative</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Tables Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav"  href="ojt-dashboard.php">
-        <i class="bi bi-card-list"></i><span>OJT Records</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="waiver-dashboard.php">
-              <i class="bi bi-circle"></i><span>Waiver</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-apexcharts.html">
-              <i class="bi bi-circle"></i><span>Concent</span>
-            </a>
-          </li><!-- End OJT Records Nav -->
-        </ul>
-      </li>
-    
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" href="student_info.php">
-        <i class="bi bi-file-earmark-person-fill"></i><span>Student Information</span>
-        </a>
-        
-      </li><!-- End Tables Nav -->
-
-      <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#tables-nav" href="ojt-field.php">
-                <i class="bi bi-person-lines-fill"></i><span>OJT Field</span>
+            <li class="nav-item">
+                <a class="nav-link" href="admin-index.php">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
                 </a>
+            </li><!-- End Dashboard Nav -->
 
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" href="course.php">
+                <i class="bi bi-terminal-fill"></i><span>Course / Program</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="specialization.php">
+                            <i class="bi bi-circle"></i><span>Specialization</span>
+                        </a>
+                    </li><!-- End OJT Records Nav -->
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#tables-nav" href="narrative-dashboard.php">
+                    <i class="bi bi-layout-text-window-reverse"></i><span>Narrative Reports</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="narrative-test.php">
+                            <i class="bi bi-circle"></i><span>Download Narrative</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Tables Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" href="ojt-dashboard.php">
+                    <i class="bi bi-card-list"></i><span>OJT Records</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="waiver-dashboard.php">
+                            <i class="bi bi-circle"></i><span>Waiver</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="charts-apexcharts.html">
+                            <i class="bi bi-circle"></i><span>Concent</span>
+                        </a>
+                    </li><!-- End OJT Records Nav -->
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#tables-nav" href="student_info.php">
+                    <i class="bi bi-file-earmark-person-fill"></i><span>Student Information</span>
+                </a>
+            </li>
+            </li><!-- End Tables Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" href="ojt-field.php">
+                    <i class="bi bi-person-lines-fill"></i><span>OJT Field</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="company.php">
+                            <i class="bi bi-circle"></i><span>Company</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="program.php">
+                            <i class="bi bi-circle"></i><span>Programming Position</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="bpo.php">
+                            <i class="bi bi-circle"></i><span>BPO Position</span>
+                        </a>
+                    </li>
+                </ul>
             </li><!-- End Create Student Nav -->
 
-      <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#tables-nav" href="create-student.php">
                     <i class="bi bi-person-square"></i><span>Create User</span>
                 </a>
-
             </li><!-- End Create Student Nav -->
-
-
-    </ul>
-
-  </aside><!-- End Sidebar-->
+        </ul>
+    </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 

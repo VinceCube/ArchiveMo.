@@ -96,37 +96,69 @@ if ($result->num_rows > 0) {
         <!--inserting to database-->
 
         <?php
+
+        function getExistingFile($email)
+        {
+          global $conn;
+
+          $query = "SELECT contract FROM contract WHERE email = ?";
+          $stmt = mysqli_prepare($conn, $query);
+          mysqli_stmt_bind_param($stmt, "s", $email);
+          mysqli_stmt_execute($stmt);
+          mysqli_stmt_store_result($stmt);
+
+          if (mysqli_stmt_num_rows($stmt) > 0) {
+            mysqli_stmt_bind_result($stmt, $existing_file);
+            mysqli_stmt_fetch($stmt);
+            mysqli_stmt_close($stmt);
+            return $existing_file;
+          } else {
+            mysqli_stmt_close($stmt);
+            return false;
+          }
+        }
+
+        $email = $_SESSION['useremail'];
+
+        $existing_file = getExistingFile($email);
+
         if (isset($_SESSION['message'])) {
           echo $_SESSION['message'];
           unset($_SESSION['message']);
         }
 
         if (isset($_POST['submit'])) {
+          if (!$existing_file) {
+            $pname = rand(1000, 10000) . "_" . $_FILES["file"]["name"];
+            $tname = $_FILES["file"]["tmp_name"];
+            $date = $_POST['date'];
 
-          $pname = rand(1000, 10000) . "_" . $_FILES["file"]["name"];
-          $tname = $_FILES["file"]["tmp_name"];
-          $date = $_POST['date'];
-          $upload_dir = 'images/pdf';
-          move_uploaded_file($tname, $upload_dir . '/' . $pname);
+            $upload_dir = 'images/pdf';
+            move_uploaded_file($tname, $upload_dir . '/' . $pname);
 
-          $sql = "INSERT INTO `contract` (`id`, `email`, `contract`, `date`) VALUES (NULL, ?, ?, ?)";
-          $stmt = mysqli_prepare($conn, $sql);
-          mysqli_stmt_bind_param($stmt, "sss", $email, $pname, $date);
+            $sql = "INSERT INTO `contract` (`id`, `email`, `contract`, `date`) VALUES (NULL, ?, ?, ?)";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "sss", $email, $pname, $date);
 
+            if (mysqli_stmt_execute($stmt)) {
+              $_SESSION['message'] = '<script>
+                swal("Success!", "Registration Certificate successfully submitted.", "success");
+            </script>';
+              echo "<script>window.location.href = 'contract_form.php';</script>";
+              exit();
+            } else {
+              echo "Error: " . mysqli_error($conn);
+            }
 
-          if (mysqli_stmt_execute($stmt)) {
-            $_SESSION['message'] = '   ` <script>
-      swal("Success!", "OJT Contract successfully submitted.", "success");
-      </script>`';
-            echo "<script>window.location.href = 'contract_form.php';</script>";
-            exit(); // Add this line to stop further execution
+            mysqli_stmt_close($stmt);
           } else {
-            echo "Error: " . mysqli_error($conn);
+            echo '<script>
+            swal("Error!", "You can only upload one file. Delete the existing file if you want to upload a new one.", "error");
+        </script>';
           }
-          mysqli_stmt_close($stmt);
         }
-
         ?>
+
         <section id="narrative" class="narrative">
           <div class="container">
             <div class="section-title">

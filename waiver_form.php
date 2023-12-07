@@ -98,63 +98,93 @@ if ($result->num_rows > 0) {
 
         <?php
 
-        if (isset($_SESSION['message'])) {
-          echo $_SESSION['message'];
-          unset($_SESSION['message']);
-        }
-        if (isset($_POST['submit'])) {
-          $pname = rand(1000, 10000) . "_" . $_FILES["file"]["name"];
-          $tname = $_FILES["file"]["tmp_name"];
-          $date = $_POST['date'];
+function getExistingFile($email)
+{
+    global $conn;
 
-          $upload_dir = 'images/pdf';
-          move_uploaded_file($tname, $upload_dir . '/' . $pname);
+    $query = "SELECT waiver FROM records WHERE email = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
 
-          $sql = "INSERT INTO `records` (`id`, `email`, `waiver`,`date`) VALUES (NULL, ?, ?, ?)";
-          $stmt = mysqli_prepare($conn, $sql);
-          mysqli_stmt_bind_param($stmt, "sss", $email, $pname, $date);
+    if (mysqli_stmt_num_rows($stmt) > 0) {
+        mysqli_stmt_bind_result($stmt, $existing_file);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+        return $existing_file;
+    } else {
+        mysqli_stmt_close($stmt);
+        return false;
+    }
+}
 
+$email = $_SESSION['useremail'];
 
-          if (mysqli_stmt_execute($stmt)) {
+$existing_file = getExistingFile($email);
 
-            $_SESSION['message'] = '   ` <script>
-	swal("Success!", "Waiver successfully submitted.", "success");
-	</script>`';
+if (isset($_SESSION['message'])) {
+    echo $_SESSION['message'];
+    unset($_SESSION['message']);
+}
+
+if (isset($_POST['submit'])) {
+    if (!$existing_file) {
+        $pname = rand(1000, 10000) . "_" . $_FILES["file"]["name"];
+        $tname = $_FILES["file"]["tmp_name"];
+        $date = $_POST['date'];
+
+        $upload_dir = 'images/pdf';
+        move_uploaded_file($tname, $upload_dir . '/' . $pname);
+
+        $sql = "INSERT INTO `records` (`id`, `email`, `waiver`, `date`) VALUES (NULL, ?, ?, ?)";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "sss", $email, $pname, $date);
+
+        if (mysqli_stmt_execute($stmt)) {
+            $_SESSION['message'] = '<script>
+                swal("Success!", "Waiver successfully submitted.", "success");
+            </script>';
             echo "<script>window.location.href = 'waiver_form.php';</script>";
-            exit(); // Add this line to stop further execution
-          } else {
+            exit();
+        } else {
             echo "Error: " . mysqli_error($conn);
-          }
-          mysqli_stmt_close($stmt);
         }
 
-        ?>
+        mysqli_stmt_close($stmt);
+    } else {
+        echo '<script>
+            swal("Error!", "You can only upload one file. Delete the existing file if you want to upload a new one.", "error");
+        </script>';
+    }
+        }
+?>
+
         <section id="narrative" class="narrative">
-          <div class="container">
+        <div class="container">
             <div class="section-title">
-              <h2>OJT Records</h2>
+                <h2>OJT Records</h2>
             </div>
 
             <div class="row" data-aos="fade-up">
-              <div class="col-lg-2 blank_page">
-                <i class="bx bx-file"></i>
-              </div>
-              <div class="col-lg-8  form-narrative">
-                <h1>Waiver</h1>
-                <p>(PDF copy)</p>
-                <form action="waiver_form.php" method="POST" autocomplete="off" enctype="multipart/form-data">
-                  <?php $currentDate = date('m/d/Y'); ?>
-                  <input type="hidden" name="date" value="<?php echo $currentDate; ?>">
-                  <input type="file" name="file" id="file"><!--narrative-->
-
-                  <label for="upload">
-                    <i class="bi bi-upload"></i>
-                    &nbsp Upload</label>
-                  <input type="submit" name="submit" id="upload">
-
-                </form>
-              </div>
+                <div class="col-lg-2 blank_page">
+                    <i class="bx bx-file"></i>
+                </div>
+                <div class="col-lg-8  form-narrative">
+                    <h1>Waiver</h1>
+                    <p>(PDF copy)</p>
+                    <form action="waiver_form.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+                        <?php $currentDate = date('m/d/Y'); ?>
+                        <input type="hidden" name="date" value="<?php echo $currentDate; ?>">
+                        <input type="file" name="file" id="file">
+                        <label for="upload">
+                            <i class="bi bi-upload"></i>
+                            &nbsp Upload</label>
+                        <input type="submit" name="submit" id="upload">
+                    </form>
+                </div>
             </div>
+        </div>
 
             <?php
 

@@ -146,9 +146,9 @@ while($row = mysqli_fetch_array($result)){
         <p>BS INFO TECH - 3WMAD1</p>
         <div class="row"><div class="soc-link">
           <ul>
-            <li><a href="https://www.instagram.com/megandati/"><i class="bi bi-instagram"></i></a></li>
-            <li><a href=""><i class="bi bi-facebook"></i></a></li>
-            <li><a href=""><i class="bi bi-envelope-fill"></i></a></li>
+            <li><a href="https://www.instagram.com/megandati/" target="_blank"><i class="bi bi-instagram"></i></a></li>
+            <li><a href=""><i class="bi bi-facebook" target="_blank"></i></a></li>
+            <li><a href=""><i class="bi bi-envelope-fill" target="_blank"></i></a></li>
           </ul>
         </div>
         </div>
@@ -161,9 +161,9 @@ while($row = mysqli_fetch_array($result)){
         <p>BS INFO TECH - 3WMAD1</p>
         <div class="row"><div class="soc-link">
           <ul>
-            <li><a href="https://www.instagram.com/arvievince/"><i class="bi bi-instagram"></i></a></li>
-            <li><a href="https://www.facebook.com/vincearviecube11"><i class="bi bi-facebook"></i></a></li>
-            <li><a href="https://mail.google.com/mail/u/1/#inbox?compose=CllgCJZbjGgMmkgwFPQHTlkzrQmqRTGtljzcMWKvNhtnnSxMKSvFXdjBGZDKgXBzhswzGjfVFGB"><i class="bi bi-envelope-fill"></i></a></li>
+            <li><a href="https://www.instagram.com/arvievince/" target="_blank"><i class="bi bi-instagram"></i></a></li>
+            <li><a href="https://www.facebook.com/vincearviecube11" target="_blank"><i class="bi bi-facebook"></i></a></li>
+            <li><a href="https://mail.google.com/mail/u/1/#inbox?compose=CllgCJZbjGgMmkgwFPQHTlkzrQmqRTGtljzcMWKvNhtnnSxMKSvFXdjBGZDKgXBzhswzGjfVFGB" target="_blank"><i class="bi bi-envelope-fill"></i></a></li>
           </ul>
         </div>
         </div>
@@ -176,9 +176,9 @@ while($row = mysqli_fetch_array($result)){
         <p>BS INFO TECH - 3WMAD1</p>
         <div class="row"><div class="soc-link">
           <ul>
-            <li><a href="https://www.instagram.com/jusijasmine/"><i class="bi bi-instagram"></i></a></li>
-            <li><a href="https://www.facebook.com/jasmine1001jusi"><i class="bi bi-facebook"></i></a></li>
-            <li><a href="https://mail.google.com/mail/u/1/#drafts?compose=GTvVlcRwQLtbzpvTvkTCGgBmsXwSdDRFKrFHVjzCgdKJxPNXwlkNVDvWLPcNkXJmZdbdtHplxMCJL"><i class="bi bi-envelope-fill"></i></a></li>
+            <li><a href="https://www.instagram.com/jusijasmine/" target="_blank"><i class="bi bi-instagram"></i></a></li>
+            <li><a href="https://www.facebook.com/jasmine1001jusi" target="_blank"><i class="bi bi-facebook"></i></a></li>
+            <li><a href="https://mail.google.com/mail/u/1/#drafts?compose=GTvVlcRwQLtbzpvTvkTCGgBmsXwSdDRFKrFHVjzCgdKJxPNXwlkNVDvWLPcNkXJmZdbdtHplxMCJL" target="_blank"><i class="bi bi-envelope-fill"></i></a></li>
           </ul>
         </div>
         </div>
@@ -213,7 +213,7 @@ while($row = mysqli_fetch_array($result)){
               <div class="email">
                 <i class="bi bi-envelope"></i>
                 <h4>Email:</h4>
-                <p>0320-0677@lspu.edu.ph</p>
+                <p>archivemo2023@gmail.com</p>
               </div>
 
               <div class="phone">

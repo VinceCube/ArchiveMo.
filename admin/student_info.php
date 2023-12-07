@@ -129,6 +129,19 @@ if (isset($_SESSION['useremail'])) {
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" href="course.php">
+          <i class="bi bi-terminal-fill"></i><span>Course / Program</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="specialization.php">
+              <i class="bi bi-circle"></i><span>Specialization</span>
+            </a>
+          </li><!-- End OJT Records Nav -->
+        </ul>
+      </li>
+
+      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" href="narrative-dashboard.php">
           <i class="bi bi-layout-text-window-reverse"></i><span>Narrative Reports</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -160,30 +173,41 @@ if (isset($_SESSION['useremail'])) {
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" data-bs-target="#tables-nav" href="student_info.php">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" href="student_info.php">
           <i class="bi bi-file-earmark-person-fill"></i><span>Student Information</span>
         </a>
-
+      </li>
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" href="ojt-field.php">
-          <i class="bi bi-person-lines-fill"></i><span>OJT Field</span>
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" href="ojt-field.php">
+          <i class="bi bi-person-lines-fill"></i><span>OJT Field</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-
+        <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="company.php">
+              <i class="bi bi-circle"></i><span>Company</span>
+            </a>
+          </li>
+          <li>
+            <a href="program.php">
+              <i class="bi bi-circle"></i><span>Programming Position</span>
+            </a>
+          </li>
+          <li>
+            <a href="bpo.php">
+              <i class="bi bi-circle"></i><span>BPO Position</span>
+            </a>
+          </li>
+        </ul>
       </li><!-- End Create Student Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" href="create-student.php">
           <i class="bi bi-person-square"></i><span>Create User</span>
         </a>
-
       </li><!-- End Create Student Nav -->
-
-
-
     </ul>
-
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
@@ -321,8 +345,9 @@ if (isset($_SESSION['useremail'])) {
               $position = $_POST['position'];
               $email = $_POST['email'];
               $password = $_POST['pass'];
+              $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
 
-              $sql = "UPDATE `users` SET `firstname` = '$firstName', `lastname` = '$lastName', `birthday` = '$birthdate', `age` = '$age', `student_id` = '$student_ID', `course` = '$course', `specialization` = '$major', `address` = '$address', `contact` = '$contact', `company` = '$company', `position` = '$position', `email` = '$email', `password` = '$password'  WHERE `users`.`id` = $id";
+              $sql = "UPDATE `users` SET `firstname` = '$firstName', `lastname` = '$lastName', `birthday` = '$birthdate', `age` = '$age', `student_id` = '$student_ID', `course` = '$course', `specialization` = '$major', `address` = '$address', `contact` = '$contact', `company` = '$company', `position` = '$position', `email` = '$email', `password` = '$encrypted_password'  WHERE `users`.`id` = $id";
 
               $query_run = mysqli_query($conn, $sql);
 
@@ -344,7 +369,7 @@ if (isset($_SESSION['useremail'])) {
               }
             }
             ?>
-            
+
             <!-- Recent Sales change to data of the students -->
             <div class="col-12">
               <div class="card recent-sales overflow-auto">
@@ -360,14 +385,36 @@ if (isset($_SESSION['useremail'])) {
                         <th>Age</th>
                         <th>Address</th>
                         <th>Contact Number</th>
-                        <th>Studen Number</th>
+                        <th>Student Number</th>
+                        <th>Approved/Disapproved</th>
                         <th>Update</th>
                         <th>Delete</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php
+                      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        $user_id = $_POST["user_id"];
 
+                        // Update user approval status to 1 (approved)
+                        $query = "UPDATE users SET approved = 1 WHERE id = '$user_id'";
+                        $result = mysqli_query($conn, $query);
+
+                        if ($result) {
+                          $_SESSION['message'] = '
+                <script>
+                    swal("Success!", "Student has been approved!", "success");
+                    </script>
+                    ';
+                echo "<script>window.location.href = 'student_info.php';</script>";
+                          exit;
+                        } else {
+                          echo "Error: " . mysqli_error($conn);
+                        }
+                      }
+
+                      ?>
+                      <?php
                       $result = mysqli_query($conn, "SELECT * FROM users");
                       while ($row = mysqli_fetch_array($result)) {
 
@@ -379,6 +426,22 @@ if (isset($_SESSION['useremail'])) {
                           <td><?php echo $row["address"]; ?></td>
                           <td><?php echo $row["contact"]; ?></td>
                           <td><?php echo $row["student_id"]; ?></td>
+                          <td>
+                            <?php 
+                            if($row['approved'] === 0 || $row['approved'] == NULL){
+                              ?>
+                            <form action="" method="post">
+                              <input type="hidden" name="user_id" value="<?php echo $row["id"]; ?>">
+                              <button type="submit" class="btn btn-secondary"><i class="bi bi-check-square"></i> Approve</button>
+                            </form>
+                            <?php
+                            }else{
+                              ?>
+                              <p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px;'>Approved</p>
+                              <?php
+                            }
+                            ?>
+                          </td>
                           <td><button type="button" class="btn btn-primary updatebtn" data-bs-toggle="modal" data-bs-target="#editmodal<?php echo $row['id']; ?>"><i class="bi bi-pencil-square" style="font-size: 20px;"></i> Edit</button>
 
                             <!-- UPDATE CUSTOMER DATA SECTION -->
