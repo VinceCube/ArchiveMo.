@@ -358,8 +358,7 @@ if (isset($_SESSION['message'])) {
                     $mail->isHTML(true);
         
                     $mail->Subject = "ArchiveMo. Verification code";
-
-                $mail->Body =
+                    $mail->Body =
                                         "
                                         <html>
                                         <head>
