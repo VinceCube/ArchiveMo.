@@ -22,18 +22,18 @@ if (isset($_SESSION['useremail'])) {
     <link href="img/logo3.png" rel="icon">
 
     <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
-  <script src="assets/vendor/testLocalJs/sweetalert.min.js"></script>
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+    <script src="assets/vendor/testLocalJs/sweetalert.min.js"></script>
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
@@ -130,7 +130,7 @@ if (isset($_SESSION['useremail'])) {
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#charts-nav" href="course.php">
-                <i class="bi bi-terminal-fill"></i><span>Course / Program</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-terminal-fill"></i><span>Course / Program</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li>
@@ -266,7 +266,7 @@ if (isset($_SESSION['useremail'])) {
                                     <div class="row mb-3">
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Birthdate</label>
                                         <div class="col-md-8 col-lg-9">
-                                        <input type="date" id="birth" class="form-control" name="birth">
+                                            <input type="date" id="birth" class="form-control" name="birth">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -285,12 +285,12 @@ if (isset($_SESSION['useremail'])) {
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Course</label>
                                         <div class="col-md-8 col-lg-9">
                                             <select name="course" id="course" class="form-control">
-                                            <option value="">Select Course</option>
-                                            <?php
+                                                <option value="">Select Course</option>
+                                                <?php
                                                 $result = mysqli_query($conn, "SELECT * FROM course");
-                                                while($row = mysqli_fetch_assoc($result)){
+                                                while ($row = mysqli_fetch_assoc($result)) {
                                                 ?>
-                                                <option value="<?php echo $row['program']; ?>"><?php echo $row['program']; ?></option>
+                                                    <option value="<?php echo $row['program']; ?>"><?php echo $row['program']; ?></option>
                                                 <?php
                                                 }
                                                 ?>
@@ -304,9 +304,9 @@ if (isset($_SESSION['useremail'])) {
                                                 <option value="">Select Specialization</option>
                                                 <?php
                                                 $result = mysqli_query($conn, "SELECT * FROM major");
-                                                while($row = mysqli_fetch_assoc($result)){
+                                                while ($row = mysqli_fetch_assoc($result)) {
                                                 ?>
-                                                <option value="<?php echo $row['specialization']; ?>"><?php echo $row['specialization']; ?></option>
+                                                    <option value="<?php echo $row['specialization']; ?>"><?php echo $row['specialization']; ?></option>
                                                 <?php
                                                 }
                                                 ?>
@@ -350,6 +350,8 @@ if (isset($_SESSION['useremail'])) {
                                         </div>
                                     </div>
 
+                                    <input type="text" class="form-control" name="approve" value="0" hidden>
+
                                     <div class="text-center">
                                         <ul>
                                             <li><button type="submit" class="btn btn-primary" name="create">Continue</button></li>
@@ -360,12 +362,12 @@ if (isset($_SESSION['useremail'])) {
 
                                 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+                                use PHPMailer\PHPMailer\PHPMailer;
+                                use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/phpmailer/src/Exception.php';
-require 'vendor/phpmailer/src/PHPMailer.php';
-require 'vendor/phpmailer/src/SMTP.php';
+                                require 'vendor/phpmailer/src/Exception.php';
+                                require 'vendor/phpmailer/src/PHPMailer.php';
+                                require 'vendor/phpmailer/src/SMTP.php';
 
 
                                 if (isset($_SESSION['message'])) {
@@ -387,39 +389,37 @@ require 'vendor/phpmailer/src/SMTP.php';
                                     $position = $_POST['position'];
                                     $email = $_POST['email'];
                                     $password = $_POST['pass'];
+                                    $approved = $_POST['approve'];
 
                                     $query = "SELECT email FROM users WHERE email = '$email'";
                                     $result = mysqli_query($conn, $query);
 
-                                    if(mysqli_num_rows($result) > 0){
-                                       echo '
+                                    if (mysqli_num_rows($result) > 0) {
+                                        echo '
                                         <script>
                                         swal("Sign in Failed!", "The email is already in use. Please use other email.", "warning");
                                         </script>';
-                                        
-                                    }else{
+                                    } else {
                                         $mail = new PHPMailer(true);
 
                                         $mail->isSMTP();
                                         $mail->Host = 'smtp.gmail.com';
                                         $mail->SMTPAuth = true;
-                                        $mail->Username = ''; //gmail account
-                                        $mail->Password = ''; //password
+                                        $mail->Username = 'archivemo2023@gmail.com'; // Gmail account
+                                        $mail->Password = 'vevhmorfldvdibwc'; // Gmail password
                                         $mail->SMTPSecure = 'ssl';
                                         $mail->Port = 465;
 
-                                        $mail->setFrom('', ''); //gmail from you ex. abcd@gmail.come, ABCD website
-
-                                        $mail->addAddress($_POST["email"]);
-                                        $mail->addReplyTo('', '');//same here gmail account ex. abcdefg@gmail.com, abcd admin
-
+                                        $mail->setFrom('archivemo2023@gmail.com', 'ArchiveMo.');
+                                        $mail->addAddress($email);
+                                        $mail->addReplyTo('0320-0677@lspu.edu.ph', 'ArchiveMo. Admin');
                                         $mail->isHTML(true);
 
                                         $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
 
                                         $mail->Subject = "ArchiveMo. Verification code";
                                         $mail->Body =
-                                        "
+                                            "
                                         <html>
                                         <head>
                                             <style>
@@ -478,7 +478,7 @@ require 'vendor/phpmailer/src/SMTP.php';
                                                 <div class='logo'>
                                                     <h2>ArchiveMo<span>.</span></h2>
                                                 </div>
-                                                <p>Dear Ms/Mr. " . $firstName . " " . $lastName .",</p>
+                                                <p>Dear Ms/Mr. " . $firstName . " " . $lastName . ",</p>
                                                 <p>To finish setting up your Microsoft account, we just need to make sure this email address is yours. To verify your email address use this security code:</p>
                                                 <h1>" . $verification_code . "</h1>
                                                 <p>You can use it to verify your account on ArchiveMo. If you didn't request this code, you can safely ignore this email. Someone else might have typed your email address by mistake.</p>
@@ -495,25 +495,24 @@ require 'vendor/phpmailer/src/SMTP.php';
 
                                         $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
 
-                                        $sql = "INSERT INTO `users` (`id`, `firstname`, `lastname`, `birthday`, `age`, `student_id`, `course`, `specialization`, `address`, `contact`, `company`, `position`, `email`, `password`, `ver_code`, `verified_at`) VALUES (NULL, '$firstName', '$lastName', '$birthDay', '$age', '$studentID', '$course', '$major', '$address', '$contact', '$company', '$position', '$email', '$encrypted_password', '$verification_code', NULL);";
+                                        $sql = "INSERT INTO `users` (`id`, `firstname`, `lastname`, `birthday`, `age`, `student_id`, `course`, `specialization`, `address`, `contact`, `company`, `position`, `email`, `password`, `ver_code`, `verified_at`, `approved`) VALUES (NULL, '$firstName', '$lastName', '$birthDay', '$age', '$studentID', '$course', '$major', '$address', '$contact', '$company', '$position', '$email', '$encrypted_password', '$verification_code', NULL, '$approved');";
 
                                         $fire = mysqli_query($conn, $sql);
 
-                                        if ($fire){
+                                        if ($fire) {
                                             $_SESSION['message'] =
-                                            '`
+                                                '`
                                             <script>
                                             swal("New User Added!", "New user has been created!", "success");
                                             </script>
                                             `';
                                             echo "<script>window.location.href = 'create-student.php';</script>";
-                                        }
-                                        else{
+                                        } else {
                                             $_SESSION['message'] = '`
                                         <script>
                                         swal("Something went wrong!", "There is a problem creating new user.", "warning");
                                         </script>`';
-                                        echo "<script>window.location.href = 'create-student.php';</script>";
+                                            echo "<script>window.location.href = 'create-student.php';</script>";
                                         }
                                     }
                                 }

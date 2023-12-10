@@ -172,13 +172,13 @@ if (isset($_SESSION['message'])) {
                                 <div class="col" style="text-align: left;">
                                     <div class="form-group">
                                         <label for="birth">Birthdate</label>
-                                        <input type="date" id="birth" class="form-control" name="birth" placeholder="Birthdate">
+                                        <input type="date" id="birthdate" onchange="calculateAge()" class="form-control" name="birth" placeholder="Birthdate">
                                     </div>
                                 </div>
                                 <div class="col" style="text-align: left;">
                                     <div class="form-group">
                                         <label for="age">Age</label>
-                                        <input type="number" class="form-control" name="age" placeholder="Age">
+                                        <input type="number" id="ageInput" class="form-control" name="age" placeholder="Age">
                                     </div>
                                 </div>
                             </div>
@@ -480,3 +480,26 @@ if (isset($_SESSION['message'])) {
         </footer>
     </div>
 </body>
+<script>
+        function calculateAge() {
+            // Get the birthdate input value
+            var birthdateInput = document.getElementById('birthdate');
+            var birthdate = new Date(birthdateInput.value);
+
+            // Get the current date
+            var currentDate = new Date();
+
+            // Calculate the age
+            var age = currentDate.getFullYear() - birthdate.getFullYear();
+
+            // Check if the birthday has occurred this year
+            if (currentDate.getMonth() < birthdate.getMonth() ||
+                (currentDate.getMonth() === birthdate.getMonth() && currentDate.getDate() < birthdate.getDate())) {
+                age--;
+            }
+
+            // Display the calculated age in the input field
+            document.getElementById('ageInput').value = age;
+        }
+    </script>
+</html>

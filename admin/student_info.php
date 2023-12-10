@@ -406,7 +406,7 @@ if (isset($_SESSION['useremail'])) {
                     swal("Success!", "Student has been approved!", "success");
                     </script>
                     ';
-                echo "<script>window.location.href = 'student_info.php';</script>";
+                          echo "<script>window.location.href = 'student_info.php';</script>";
                           exit;
                         } else {
                           echo "Error: " . mysqli_error($conn);
@@ -425,20 +425,20 @@ if (isset($_SESSION['useremail'])) {
                           <td><?php echo $row["age"]; ?></td>
                           <td><?php echo $row["address"]; ?></td>
                           <td><?php echo $row["contact"]; ?></td>
-                          <td><?php echo $row["student_id"]; ?></td>
-                          <td>
-                            <?php 
-                            if($row['approved'] === 0 || $row['approved'] == NULL){
-                              ?>
-                            <form action="" method="post">
-                              <input type="hidden" name="user_id" value="<?php echo $row["id"]; ?>">
-                              <button type="submit" class="btn btn-secondary"><i class="bi bi-check-square"></i> Approve</button>
-                            </form>
+                          <td><?php echo $row["student_id"]; ?></td>                          <td>
                             <?php
-                            }else{
-                              ?>
+                            if ($row['approved'] != 0 && $row['approved'] != NULL) {
+                            ?>
                               <p style='color: green; background-color: rgba(0, 128, 0, 0.355); border-radius: 2px; padding: 2px;'>Approved</p>
-                              <?php
+
+                            <?php
+                            } else {
+                            ?>
+                              <form action="" method="post">
+                                <input type="hidden" name="user_id" value="<?php echo $row["id"]; ?>">
+                                <button type="submit" class="btn btn-secondary"><i class="bi bi-check-square"></i> Approve</button>
+                              </form>
+                            <?php
                             }
                             ?>
                           </td>

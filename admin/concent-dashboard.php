@@ -47,86 +47,6 @@ if (isset($_SESSION['useremail'])) {
 </head>
 
 <body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="admin-index.php" class="logo d-flex align-items-center">
-        <img src="img/logo3.png" alt="" style="width: auto; height: 60px">
-        <span class="logo-name">ArchiveMo<span style="color: #F5A623; font-family: Poppins, sans-serif">.</span></span>
-      </a>
-    </div><!-- End Logo -->
-
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-
-
-        <!-- profile button-->
-
-        <li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <?php
-            $email = $_SESSION['useremail'];
-            $result = mysqli_query($conn, "SELECT * FROM admin WHERE username ='$email'");
-
-            while ($row = mysqli_fetch_array($result)) {
-
-            ?>
-              <i class="bi bi-person" style="font-size: 2rem;"></i><!--change it to user profile-->
-              <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $row["username"]; ?></span><!--change it to username-->
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6><?php echo $row["username"]; ?></h6><!--change to username-->
-            <?php
-            }
-            ?>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="admin_profile.php">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="logout.php">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
-
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
-    </nav><!-- End Icons Navigation -->
-
-  </header><!-- End Header -->
-
-  <main id="main" class="main" style="margin-left: 0;">
-
-    <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
-          <li class="breadcrumb-item active"><a href="ojt-dashboard.php">OJT Records</a></li>
-          <li class="breadcrumb-item">Download Concent</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-
     <section class="section dashboard">
       <div class="row">
         <!--Waiver Table-->
@@ -230,13 +150,6 @@ if (isset($_SESSION['useremail'])) {
     </section>
 
   </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>ArchiveMo.</span></strong>. All Rights Reserved
-    </div>
-  </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
