@@ -3,7 +3,7 @@ session_start();
 include 'dbconn.php';
 if (isset($_SESSION['useremail'])) {
 } else {
-    header("location: admin-index.php");
+    echo "<script>window.location.href='admin-index.php';</script>";
 }
 ?>
 <!DOCTYPE html>
@@ -184,12 +184,12 @@ if (isset($_SESSION['useremail'])) {
                 <ul id="charts-nav" class="nav-content" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="company.php">
-                            <i class="bi bi-circle"></i><span>Company</span>
+                            <i class="bi bi-circle"></i><span>Organization</span>
                         </a>
                     </li>
                     <li>
                         <a href="program.php">
-                            <i class="bi bi-circle"></i><span>Programming Position</span>
+                            <i class="bi bi-circle"></i><span>Developer Position</span>
                         </a>
                     </li>
                     <li>
@@ -250,7 +250,7 @@ if (isset($_SESSION['useremail'])) {
                         <div class="col-xxl-4 col-md-6">
                             <div class="card info-card revenue-card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Programmer</h5>
+                                    <h5 class="card-title">Developer / Programmer</h5>
                                     <div class="d-flex align-items-center">
                                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                             <i class="bi bi-pc-display" style="color: #4154f1;"></i>
@@ -348,7 +348,7 @@ if (isset($_SESSION['useremail'])) {
                                         <th>#</th>
                                         <th>Students Name</th>
                                         <th>Email</th>
-                                        <th>Company</th>
+                                        <th>Organization</th>
                                         <th>Position</th>
                                         <th>Type</th>
                                     </tr>

@@ -3,7 +3,7 @@ session_start();
 include 'dbconn.php';
 if (isset($_SESSION['useremail'])) {
 } else {
-  header("location: admin-index.php");
+  echo "<script>window.location.href='admin-index.php';</script>";
 }
 ?>
 

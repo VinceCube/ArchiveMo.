@@ -233,17 +233,14 @@ if (isset($_SESSION['useremail'])) {
             <!-- Positive Count -->
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card sales-card">
-
                 <div class="card-body">
                   <h5 class="card-title">Postive</h5>
-
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-file-earmark-arrow-up-fill" style="color: #2eca6a;"></i>
                     </div>
                     <div class="ps-3">
                       <h6><?php echo $total_positive; ?></h6><!-- create a php code for the number of students int he system -->
-
                     </div>
                   </div>
                 </div>

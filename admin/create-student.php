@@ -3,7 +3,7 @@ session_start();
 include 'dbconn.php';
 if (isset($_SESSION['useremail'])) {
 } else {
-    header("location: admin-index.php");
+    echo "<script>window.location.href='admin-index.php';</script>";
 }
 ?>
 
@@ -203,7 +203,7 @@ if (isset($_SESSION['useremail'])) {
             </li><!-- End Create Student Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#tables-nav" href="create-student.php">
+                <a class="nav-link" data-bs-target="#tables-nav" href="create-student.php">
                     <i class="bi bi-person-square"></i><span>Create User</span>
                 </a>
             </li><!-- End Create Student Nav -->
@@ -266,13 +266,13 @@ if (isset($_SESSION['useremail'])) {
                                     <div class="row mb-3">
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Birthdate</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input type="date" id="birth" class="form-control" name="birth">
+                                            <input type="date" id="birthdate" onchange="calculateAge()" class="form-control" name="birth">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Age</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input type="number" class="form-control" name="age">
+                                            <input type="number" id="ageInput" class="form-control" name="age">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -546,6 +546,29 @@ if (isset($_SESSION['useremail'])) {
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+
+    <script>
+    function calculateAge() {
+        // Get the birthdate input value
+        var birthdateInput = document.getElementById('birthdate');
+        var birthdate = new Date(birthdateInput.value);
+
+        // Get the current date
+        var currentDate = new Date();
+
+        // Calculate the age
+        var age = currentDate.getFullYear() - birthdate.getFullYear();
+
+        // Check if the birthday has occurred this year
+        if (currentDate.getMonth() < birthdate.getMonth() ||
+            (currentDate.getMonth() === birthdate.getMonth() && currentDate.getDate() < birthdate.getDate())) {
+            age--;
+        }
+
+        // Display the calculated age in the input field
+        document.getElementById('ageInput').value = age;
+    }
+</script>
 
 </body>
 

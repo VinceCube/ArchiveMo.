@@ -118,7 +118,7 @@ while($row = mysqli_fetch_array($result)){
             <i class='bx bx-file'></i>
             </div>
             <div class='col-lg-8'>
-            <h5>Parent Concent</h5>
+            <h5>Parent Consent</h5>
             <p>(PDF copy)</p>
             <a href="concent_form.php" class="ojt-upload">Upload File</a>
             </div>

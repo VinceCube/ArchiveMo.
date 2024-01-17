@@ -53,14 +53,16 @@ if (isset($_SESSION['message'])) {
         }
 
         @media only screen and (min-width: 360px) and (max-width: 576px) {
-            .card{
+            .card {
                 width: 100%;
-            margin: auto;
+                margin: auto;
             }
-            form{
+
+            form {
                 margin: 0 90px;
             }
-            .header-content img{
+
+            .header-content img {
                 display: none;
             }
         }
@@ -87,7 +89,8 @@ if (isset($_SESSION['message'])) {
                 width: 80%;
                 margin: 0;
             }
-            form{
+
+            form {
                 margin: 0 60px;
             }
         }
@@ -102,7 +105,8 @@ if (isset($_SESSION['message'])) {
                 width: 100%;
                 margin: 0;
             }
-            form{
+
+            form {
                 margin: 0 50px;
             }
         }
@@ -149,7 +153,7 @@ if (isset($_SESSION['message'])) {
                     <div class="card-body">
 
                         <div class="pt-4 pb-2">
-                            <img src="img/logo.png" alt="" class="logo" style="width: 200px; margin: auto; margin-top: -35px;">
+                            <img src="img/logo.png" alt="" class="logo" style="width: 200px; margin: auto; margin-top: -30px;">
                             <h4>Sign up</h4>
                         </div>
 
@@ -163,42 +167,66 @@ if (isset($_SESSION['message'])) {
                                 </div>
                                 <div class="col" style="text-align: left;">
                                     <div class="form-group">
-                                        <label for="lastName">Last Name</label>
-                                        <input type="text" class="form-control" name="lastName" placeholder="Last Name">
+                                        <label for="middle">Middle Name</label>
+                                        <input type="text" class="form-control" name="middleName" placeholder="Middle Name">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col" style="text-align: left;">
+                                    <div class="form-group">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" class="form-control" name="lastName" placeholder="Last Name">
+                                    </div>
+                                </div>
                                 <div class="col" style="text-align: left;">
                                     <div class="form-group">
                                         <label for="birth">Birthdate</label>
                                         <input type="date" id="birthdate" onchange="calculateAge()" class="form-control" name="birth" placeholder="Birthdate">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col" style="text-align: left;">
                                     <div class="form-group">
                                         <label for="age">Age</label>
                                         <input type="number" id="ageInput" class="form-control" name="age" placeholder="Age">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col" style="text-align: left;">
                                     <div class="form-group">
                                         <label for="student-ID">Student Number</label>
                                         <input type="text" class="form-control" name="student-ID" placeholder="0320###">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col" style="text-align: left;">
                                     <div class="form-group">
                                         <label for="course">Course</label>
                                         <select name="course" id="course" class="form-control">
                                             <option value="">Select Course</option>
-                                            <?php 
+                                            <?php
                                             $result = mysqli_query($conn, "SELECT program FROM course");
-                                            while($row = mysqli_fetch_assoc($result)){
+                                            while ($row = mysqli_fetch_assoc($result)) {
                                             ?>
-                                            <option value="<?php echo $row['program'];?>"><?php echo $row['program'];?></option>
+                                                <option value="<?php echo $row['program']; ?>"><?php echo $row['program']; ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col" style="text-align: left;">
+                                    <div class="form-group">
+                                        <label for="major">Major/Specialization</label>
+                                        <select name="major" id="major" class="form-control">
+                                            <option value="">Select Specialization</option>
+                                            <?php
+                                            $result = mysqli_query($conn, "SELECT specialization FROM major");
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                            ?>
+                                                <option value="<?php echo $row['specialization']; ?>"><?php echo $row['specialization']; ?></option>
                                             <?php
                                             }
                                             ?>
@@ -207,22 +235,6 @@ if (isset($_SESSION['message'])) {
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col" style="text-align: left;">
-                                    <div class="form-group">
-                                        <label for="major">Major/Specialization</label>
-                                        <select name="major" id="major" class="form-control">
-                                        <option value="">Select Specialization</option>
-                                            <?php 
-                                            $result = mysqli_query($conn, "SELECT specialization FROM major");
-                                            while($row = mysqli_fetch_assoc($result)){
-                                            ?>
-                                            <option value="<?php echo $row['specialization'];?>"><?php echo $row['specialization'];?></option>
-                                            <?php
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="col" style="text-align: left;">
                                     <div class="form-group">
                                         <label for="address">Address</label>
@@ -231,7 +243,7 @@ if (isset($_SESSION['message'])) {
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col" style="text-align: left;">
+                            <div class="col" style="text-align: left;">
                                     <div class="form-group">
                                         <label for="contact">Contact</label>
                                         <input type="text" class="form-control" name="contact" placeholder="0987#######">
@@ -243,23 +255,23 @@ if (isset($_SESSION['message'])) {
                                         <input type="text" class="form-control" name="company" placeholder="Company Name">
                                     </div>
                                 </div>
+                                
                             </div>
                             <div class="row">
-                                <div class="col" style="text-align: left;">
+                                    <div class="col" style="text-align: left;">
+                                        <div class="form-group">
+                                            <label for="email">Email Address</label>
+                                            <input type="text" class="form-control" name="email" placeholder="username@lspu.edu.ph">
+                                        </div>
+                                    </div>
+                                    <div class="col" style="text-align: left;">
                                     <div class="form-group">
                                         <label for="position">OJT Position</label>
                                         <input type="text" class="form-control" name="position" placeholder="Designation">
                                     </div>
                                 </div>
-                                <div class="col" style="text-align: left;">
-                                    <div class="form-group">
-                                        <label for="email">Email Address</label>
-                                        <input type="text" class="form-control" name="email" placeholder="username@lspu.edu.ph">
-                                    </div>
-                                </div>
                             </div>
                             <div class="row">
-
                                 <div class="col" style="text-align: left;">
                                     <div class="form-group">
                                         <label for="password">Password</label>
@@ -274,13 +286,13 @@ if (isset($_SESSION['message'])) {
                                 </div>
 
                                 <input type="text" class="form-control" name="approve" value="0" hidden>
-                                
-                                
+
+
                                 <div class="col-12 pt-2">
                                     <button type="submit" class="btn btn-primary login" name="create">Sign up</button>
                                 </div>
                                 <div class="col-12" style="padding: 5px 0;">
-                                    <p style="font-size: small;">Already have an accout? <a href="index.php" style="font-size: small;">Login here</a></p>
+                                    <p style="font-size: small;">Already have an account? <a href="index.php" style="font-size: small;">Login here</a></p>
                                 </div>
                         </form>
                     </div>
@@ -297,15 +309,16 @@ if (isset($_SESSION['message'])) {
         require 'admin/vendor/phpmailer/src/Exception.php';
         require 'admin/vendor/phpmailer/src/PHPMailer.php';
         require 'admin/vendor/phpmailer/src/SMTP.php';
-        
+
         if (isset($_POST['create'])) {
             $studentemail = $_POST['email'];
-        
+
             // Check if the email ends with @lspu.edu.ph
             if (strtolower(substr($studentemail, -12)) === '@lspu.edu.ph') {
                 // Continue with the signup logic
-        
+
                 $firstName = $_POST['firstName'];
+                $middle = $_POST['middleName'];
                 $lastName = $_POST['lastName'];
                 $birthDay = $_POST['birth'];
                 $age = $_POST['age'];
@@ -319,31 +332,32 @@ if (isset($_SESSION['message'])) {
                 $confirmPass = $_POST['confirm_pass'];
                 $password = $_POST['pass'];
                 $approved = $_POST['approve'];
-        
+
                 $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
                 $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
-                
-                $query = "SELECT email FROM users WHERE email = '$studentemail'";
-                                    $result = mysqli_query($conn, $query);
 
-                                    if(mysqli_num_rows($result) > 0){
-                                       echo '
+                $query = "SELECT email FROM users WHERE email = '$studentemail'";
+                $result = mysqli_query($conn, $query);
+
+                if (mysqli_num_rows($result) > 0) {
+                    echo '
                                         <script>
                                         swal("Sign in Failed!", "The email is already in use. Please use other email.", "warning");
                                         </script>';
-                } else if($password != $confirmPass){
+                } else if ($password != $confirmPass) {
                     echo '<script>
                     swal("Error!", "Error, passord did not match. Please enter your password correctly.", "error");
                 </script>';
-                }else{
-        
-                $sql = "INSERT INTO `users` (`id`, `firstname`, `lastname`, `birthday`, `age`, `student_id`, `course`, `specialization`, `address`, `contact`, `company`, `position`, `email`, `password`, `ver_code`, `verified_at`, `approved`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?)";
-                $stmt = mysqli_prepare($conn, $sql);
-                mysqli_stmt_bind_param($stmt, "sssssssssssssss", $firstName, $lastName, $birthDay, $age, $studentID, $course, $major, $address, $contact, $company, $position, $studentemail, $encrypted_password, $verification_code, $approved);
+                } else {
+                    
+                        $sql = "INSERT INTO `users` (`id`, `firstname`, `middle`, `lastname`, `birthday`, `age`, `student_id`, `course`, `specialization`, `address`, `contact`, `company`, `position`, `email`, `password`, `ver_code`, `verified_at`, `approved`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?)";
+                        $stmt = mysqli_prepare($conn, $sql);
+                        mysqli_stmt_bind_param($stmt, "ssssssssssssssss", $firstName, $middle, $lastName, $birthDay, $age, $studentID, $course, $major, $address, $contact, $company, $position, $studentemail, $encrypted_password, $verification_code, $approved);
                 }
                 if (mysqli_stmt_execute($stmt)) {
+
                     $mail = new PHPMailer(true);
-        
+
                     $mail->isSMTP();
                     $mail->Host = 'smtp.gmail.com';
                     $mail->SMTPAuth = true;
@@ -351,15 +365,15 @@ if (isset($_SESSION['message'])) {
                     $mail->Password = 'vevhmorfldvdibwc'; // Gmail password
                     $mail->SMTPSecure = 'ssl';
                     $mail->Port = 465;
-        
+
                     $mail->setFrom('archivemo2023@gmail.com', 'ArchiveMo.');
                     $mail->addAddress($studentemail);
                     $mail->addReplyTo('0320-0677@lspu.edu.ph', 'ArchiveMo. Admin');
                     $mail->isHTML(true);
-        
+
                     $mail->Subject = "ArchiveMo. Verification code";
                     $mail->Body =
-                                        "
+                        "
                                         <html>
                                         <head>
                                             <style>
@@ -418,7 +432,7 @@ if (isset($_SESSION['message'])) {
                                                 <div class='logo'>
                                                     <h2>ArchiveMo<span>.</span></h2>
                                                 </div>
-                                                <p>Dear Ms/Mr. " . $firstName . " " . $lastName .",</p>
+                                                <p>Dear Ms/Mr. " . $firstName . " " . $lastName . ",</p>
                                                 <p>To finish setting up your ArchiveMo account, we just need to make sure this email address is yours. To verify your email address use this security code:</p>
                                                 <h1>" . $verification_code . "</h1>
                                                 <p>You can use it to verify your account on ArchiveMo. If you didn't request this code, you can safely ignore this email. Someone else might have typed your email address by mistake.</p>
@@ -429,28 +443,28 @@ if (isset($_SESSION['message'])) {
                                         </html>
                                         
 ";
-                if ($mail->send()) {
-                    echo '<script>
-                    swal("Success!", "Registration Certificate successfully submitted.", "success");
+                    if ($mail->send()) {
+                        echo '<script>
+                    swal("Success!", "Please wait for someone to confirm your sign up.", "success");
                 </script>';
-            } else {
-                echo '<script>
+                    } else {
+                        echo '<script>
             swal("Error!", "Error sending verification email. Please try again later.", "error");
         </script>';
-            }
-        } else {
-            $_SESSION['message'] = 'Error: ' . mysqli_error($conn);
-        }
+                    }
+                } else {
+                    $_SESSION['message'] = 'Error: ' . mysqli_error($conn);
+                }
 
-        mysqli_stmt_close($stmt);
-    } else {
-        echo '<script>
+                mysqli_stmt_close($stmt);
+            } else {
+                echo '<script>
             swal("Error!", "Invalid email address. Use an @lspu.edu.ph email.", "error");
         </script>';
-        exit();
-    }
-}
-?>
+                exit();
+            }
+        }
+        ?>
 
     </main>
 
@@ -481,25 +495,26 @@ if (isset($_SESSION['message'])) {
     </div>
 </body>
 <script>
-        function calculateAge() {
-            // Get the birthdate input value
-            var birthdateInput = document.getElementById('birthdate');
-            var birthdate = new Date(birthdateInput.value);
+    function calculateAge() {
+        // Get the birthdate input value
+        var birthdateInput = document.getElementById('birthdate');
+        var birthdate = new Date(birthdateInput.value);
 
-            // Get the current date
-            var currentDate = new Date();
+        // Get the current date
+        var currentDate = new Date();
 
-            // Calculate the age
-            var age = currentDate.getFullYear() - birthdate.getFullYear();
+        // Calculate the age
+        var age = currentDate.getFullYear() - birthdate.getFullYear();
 
-            // Check if the birthday has occurred this year
-            if (currentDate.getMonth() < birthdate.getMonth() ||
-                (currentDate.getMonth() === birthdate.getMonth() && currentDate.getDate() < birthdate.getDate())) {
-                age--;
-            }
-
-            // Display the calculated age in the input field
-            document.getElementById('ageInput').value = age;
+        // Check if the birthday has occurred this year
+        if (currentDate.getMonth() < birthdate.getMonth() ||
+            (currentDate.getMonth() === birthdate.getMonth() && currentDate.getDate() < birthdate.getDate())) {
+            age--;
         }
-    </script>
+
+        // Display the calculated age in the input field
+        document.getElementById('ageInput').value = age;
+    }
+</script>
+
 </html>

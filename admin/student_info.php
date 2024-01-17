@@ -3,7 +3,7 @@ session_start();
 include 'dbconn.php';
 if (isset($_SESSION['useremail'])) {
 } else {
-  header("location: admin-index.php");
+  echo "<script>window.location.href='admin-index.php';</script>";
 }
 
 ?>
@@ -173,7 +173,7 @@ if (isset($_SESSION['useremail'])) {
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" href="student_info.php">
+        <a class="nav-link" data-bs-target="#tables-nav" href="student_info.php">
           <i class="bi bi-file-earmark-person-fill"></i><span>Student Information</span>
         </a>
       </li>
@@ -311,14 +311,14 @@ if (isset($_SESSION['useremail'])) {
               if ($query_run) {
                 $_SESSION['message'] = '
                     <script>
-                    swal("Success!", "Poof! One sales data has been deleted!", "success");
+                    swal("Success!", "Poof! The user has been deleted!", "success");
                     </script>
                     ';
                 echo "<script>window.location.href = 'student_info.php';</script>";
                 exit;
               } else {
                 $_SESSION['message'] = '    <script>
-                              swal("Something went wrong!", "There is a problem removing sales data.", "warning");
+                              swal("Something went wrong!", "There is a problem removing the user.", "warning");
                               </script>';
                 echo "<script>window.location.href = 'student_info.php';</script>";
                 exit();
@@ -333,6 +333,7 @@ if (isset($_SESSION['useremail'])) {
 
 
               $firstName = $_POST['firstName'];
+              $middleName = $_POST['middleName'];
               $lastName = $_POST['lastName'];
               $birthdate = $_POST['birth'];
               $age = $_POST['age'];
@@ -347,7 +348,7 @@ if (isset($_SESSION['useremail'])) {
               $password = $_POST['pass'];
               $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
 
-              $sql = "UPDATE `users` SET `firstname` = '$firstName', `lastname` = '$lastName', `birthday` = '$birthdate', `age` = '$age', `student_id` = '$student_ID', `course` = '$course', `specialization` = '$major', `address` = '$address', `contact` = '$contact', `company` = '$company', `position` = '$position', `email` = '$email', `password` = '$encrypted_password'  WHERE `users`.`id` = $id";
+              $sql = "UPDATE `users` SET `firstname` = '$firstName', `middle` = '$middleName', `lastname` = '$lastName', `birthday` = '$birthdate', `age` = '$age', `student_id` = '$student_ID', `course` = '$course', `specialization` = '$major', `address` = '$address', `contact` = '$contact', `company` = '$company', `position` = '$position', `email` = '$email', `password` = '$encrypted_password'  WHERE `users`.`id` = $id";
 
               $query_run = mysqli_query($conn, $sql);
 
@@ -381,11 +382,11 @@ if (isset($_SESSION['useremail'])) {
                     <thead>
                       <tr>
                         <th>#</th>
-                        <th>Students Name</th>
-                        <th>Age</th>
-                        <th>Address</th>
-                        <th>Contact Number</th>
+                        <th>Firstname</th>
+                        <th>Middlename</th>
+                        <th>Lastname</th>
                         <th>Student Number</th>
+                        <th>Email Address</th>
                         <th>Approved/Disapproved</th>
                         <th>Update</th>
                         <th>Delete</th>
@@ -421,11 +422,12 @@ if (isset($_SESSION['useremail'])) {
                       ?>
                         <tr>
                           <td scope="row"><?php echo $row["id"]; ?></td>
-                          <td><?php echo $row["firstname"] . " " . $row["lastname"]; ?></td>
-                          <td><?php echo $row["age"]; ?></td>
-                          <td><?php echo $row["address"]; ?></td>
-                          <td><?php echo $row["contact"]; ?></td>
-                          <td><?php echo $row["student_id"]; ?></td>                          <td>
+                          <td><?php echo $row["firstname"]; ?></td>
+                          <td><?php echo $row["middle"]; ?></td>
+                          <td><?php echo $row["lastname"]; ?></td>
+                          <td><?php echo $row["student_id"]; ?></td>
+                          <td><?php echo $row["email"]; ?></td>
+                          <td>
                             <?php
                             if ($row['approved'] != 0 && $row['approved'] != NULL) {
                             ?>
@@ -442,7 +444,7 @@ if (isset($_SESSION['useremail'])) {
                             }
                             ?>
                           </td>
-                          <td><button type="button" class="btn btn-primary updatebtn" data-bs-toggle="modal" data-bs-target="#editmodal<?php echo $row['id']; ?>"><i class="bi bi-pencil-square" style="font-size: 20px;"></i> Edit</button>
+                          <td><button type="button" class="btn btn-primary updatebtn" data-bs-toggle="modal" data-bs-target="#editmodal<?php echo $row['id']; ?>"><i class="bi bi-pencil-square" style="font-size: 18px;"></i></button>
 
                             <!-- UPDATE CUSTOMER DATA SECTION -->
                             <div class="modal fade" id="editmodal<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -453,6 +455,28 @@ if (isset($_SESSION['useremail'])) {
                                     <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close">
                                     </button>
                                   </div>
+                                  <script>
+                                    function calculateAge() {
+                                      // Get the birthdate input value
+                                      var birthdateInput = document.getElementById('birthdate');
+                                      var birthdate = new Date(birthdateInput.value);
+
+                                      // Get the current date
+                                      var currentDate = new Date();
+
+                                      // Calculate the age
+                                      var age = currentDate.getFullYear() - birthdate.getFullYear();
+
+                                      // Check if the birthday has occurred this year
+                                      if (currentDate.getMonth() < birthdate.getMonth() ||
+                                        (currentDate.getMonth() === birthdate.getMonth() && currentDate.getDate() < birthdate.getDate())) {
+                                        age--;
+                                      }
+
+                                      // Display the calculated age in the input field
+                                      document.getElementById('ageInput').value = age;
+                                    }
+                                  </script>
 
                                   <form action="" method="POST">
 
@@ -467,6 +491,12 @@ if (isset($_SESSION['useremail'])) {
                                         </div>
                                       </div>
                                       <div class="row mb-3">
+                                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label" style="font-size: 18px;">Middle Name</label>
+                                        <div class="col-md-8 col-lg-9">
+                                          <input type="text" class="form-control" name="middleName" value="<?php echo $row["middle"]; ?>">
+                                        </div>
+                                      </div>
+                                      <div class="row mb-3">
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label" style="font-size: 18px;">Last Name</label>
                                         <div class="col-md-8 col-lg-9">
                                           <input type="text" class="form-control" name="lastName" value="<?php echo $row["lastname"]; ?>">
@@ -475,13 +505,13 @@ if (isset($_SESSION['useremail'])) {
                                       <div class="row mb-3">
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label" style="font-size: 18px;">Birthdate</label>
                                         <div class="col-md-8 col-lg-9">
-                                          <input type="date" id="birth" class="form-control" name="birth" value="<?php echo $row["birthday"]; ?>">
+                                          <input type="date" id="birthdate" onchange="calculateAge()" class="form-control" name="birth" value="<?php echo $row["birthday"]; ?>">
                                         </div>
                                       </div>
                                       <div class="row mb-3">
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label" style="font-size: 18px;">Age</label>
                                         <div class="col-md-8 col-lg-9">
-                                          <input type="number" class="form-control" name="age" value="<?php echo $row["age"]; ?>">
+                                          <input type="text" id="ageInput" class="form-control" name="age" value="<?php echo $row["age"]; ?>">
                                         </div>
                                       </div>
                                       <div class="row mb-3">
@@ -495,8 +525,14 @@ if (isset($_SESSION['useremail'])) {
                                         <div class="col-md-8 col-lg-9">
                                           <select name="course" id="course" class="form-control">
                                             <option value="<?php echo $row["course"]; ?>"><?php echo $row["course"]; ?></option>
-                                            <option value="BS Information Technology">BS Information Technology</option>
-                                            <option value="BS Computer Science">BS Computer Science</option>
+                                            <?php
+                                                $result_course = mysqli_query($conn, "SELECT * FROM course");
+                                                while ($row_course = mysqli_fetch_assoc($result_course)) {
+                                                ?>
+                                                    <option value="<?php echo $row_course['program']; ?>"><?php echo $row_course['program']; ?></option>
+                                                <?php
+                                                }
+                                                ?>
                                           </select>
                                         </div>
                                       </div>
@@ -505,12 +541,14 @@ if (isset($_SESSION['useremail'])) {
                                         <div class="col-md-8 col-lg-9">
                                           <select name="major" id="major" class="form-control">
                                             <option value="<?php echo $row["specialization"]; ?>"><?php echo $row["specialization"]; ?></option>
-                                            <option value="WMAD">WMAD</option>
-                                            <option value="SMP">SMP</option>
-                                            <option value="AMG">AMG</option>
-                                            <option value="NA">NA</option>
-                                            <option value="IS">IS</option>
-                                            <option value="GAV">GAV</option>
+                                            <?php
+                                                $result_major = mysqli_query($conn, "SELECT * FROM major");
+                                                while ($cols = mysqli_fetch_assoc($result_major)) {
+                                                ?>
+                                                    <option value="<?php echo $cols['specialization']; ?>"><?php echo $cols['specialization']; ?></option>
+                                                <?php
+                                                }
+                                                ?>
                                           </select>
                                         </div>
                                       </div>
@@ -562,7 +600,7 @@ if (isset($_SESSION['useremail'])) {
                             </div>
                           </td>
 
-                          <td><button type="button" class="btn btn-danger btn-sm deletebtn" data-bs-toggle="modal" data-bs-target="#deletemodal<?php echo $row['id']; ?>"><i class="bi bi-person-x" style="font-size: 20px;"></i> Delete</button>
+                          <td><button type="button" class="btn btn-danger btn-sm deletebtn" data-bs-toggle="modal" data-bs-target="#deletemodal<?php echo $row['id']; ?>"><i class="bi bi-person-x" style="font-size: 18px;"></i></button>
 
                             <div class="modal fade" id="deletemodal<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <!-- delete modal -->
@@ -637,6 +675,7 @@ if (isset($_SESSION['useremail'])) {
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
 
 </body>
 

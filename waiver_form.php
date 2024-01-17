@@ -98,191 +98,250 @@ if ($result->num_rows > 0) {
 
         <?php
 
-function getExistingFile($email)
-{
-    global $conn;
+        function getExistingFile($email)
+        {
+          global $conn;
 
-    $query = "SELECT waiver FROM records WHERE email = ?";
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "s", $email);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_store_result($stmt);
+          $query = "SELECT waiver FROM records WHERE email = ?";
+          $stmt = mysqli_prepare($conn, $query);
+          mysqli_stmt_bind_param($stmt, "s", $email);
+          mysqli_stmt_execute($stmt);
+          mysqli_stmt_store_result($stmt);
 
-    if (mysqli_stmt_num_rows($stmt) > 0) {
-        mysqli_stmt_bind_result($stmt, $existing_file);
-        mysqli_stmt_fetch($stmt);
-        mysqli_stmt_close($stmt);
-        return $existing_file;
-    } else {
-        mysqli_stmt_close($stmt);
-        return false;
-    }
-}
+          if (mysqli_stmt_num_rows($stmt) > 0) {
+            mysqli_stmt_bind_result($stmt, $existing_file);
+            mysqli_stmt_fetch($stmt);
+            mysqli_stmt_close($stmt);
+            return $existing_file;
+          } else {
+            mysqli_stmt_close($stmt);
+            return false;
+          }
+        }
 
-$email = $_SESSION['useremail'];
+        $email = $_SESSION['useremail'];
 
-$existing_file = getExistingFile($email);
+        $existing_file = getExistingFile($email);
 
-if (isset($_SESSION['message'])) {
-    echo $_SESSION['message'];
-    unset($_SESSION['message']);
-}
+        if (isset($_SESSION['message'])) {
+          echo $_SESSION['message'];
+          unset($_SESSION['message']);
+        }
 
-if (isset($_POST['submit'])) {
-    if (!$existing_file) {
-        $pname = rand(1000, 10000) . "_" . $_FILES["file"]["name"];
-        $tname = $_FILES["file"]["tmp_name"];
-        $date = $_POST['date'];
+        if (isset($_POST['submit'])) {
+          if (!$existing_file) {
+            $pname = rand(1000, 10000) . "_" . $_FILES["file"]["name"];
+            $tname = $_FILES["file"]["tmp_name"];
+            $date = $_POST['date'];
 
-        $upload_dir = 'images/pdf';
-        move_uploaded_file($tname, $upload_dir . '/' . $pname);
+            $upload_dir = 'images/pdf';
+            move_uploaded_file($tname, $upload_dir . '/' . $pname);
 
-        $sql = "INSERT INTO `records` (`id`, `email`, `waiver`, `date`) VALUES (NULL, ?, ?, ?)";
-        $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "sss", $email, $pname, $date);
+            $sql = "INSERT INTO `records` (`id`, `email`, `waiver`, `date`) VALUES (NULL, ?, ?, ?)";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "sss", $email, $pname, $date);
 
-        if (mysqli_stmt_execute($stmt)) {
-            $_SESSION['message'] = '<script>
+            if (mysqli_stmt_execute($stmt)) {
+              $_SESSION['message'] = '<script>
                 swal("Success!", "Waiver successfully submitted.", "success");
             </script>';
-            echo "<script>window.location.href = 'waiver_form.php';</script>";
-            exit();
-        } else {
-            echo "Error: " . mysqli_error($conn);
-        }
+              echo "<script>window.location.href = 'waiver_form.php';</script>";
+              exit();
+            } else {
+              echo "Error: " . mysqli_error($conn);
+            }
 
-        mysqli_stmt_close($stmt);
-    } else {
-        echo '<script>
+            mysqli_stmt_close($stmt);
+          } else {
+            echo '<script>
             swal("Error!", "You can only upload one file. Delete the existing file if you want to upload a new one.", "error");
         </script>';
-    }
+          }
         }
-?>
+        ?>
 
         <section id="narrative" class="narrative">
-        <div class="container">
+          <div class="container">
             <div class="section-title">
-                <h2>OJT Records</h2>
+              <h2>OJT Records</h2>
             </div>
 
             <div class="row" data-aos="fade-up">
-                <div class="col-lg-2 blank_page">
-                    <i class="bx bx-file"></i>
-                </div>
-                <div class="col-lg-8  form-narrative">
-                    <h1>Waiver</h1>
-                    <p>(PDF copy)</p>
-                    <form action="waiver_form.php" method="POST" autocomplete="off" enctype="multipart/form-data">
-                        <?php $currentDate = date('m/d/Y'); ?>
-                        <input type="hidden" name="date" value="<?php echo $currentDate; ?>">
-                        <input type="file" name="file" id="file">
-                        <label for="upload">
-                            <i class="bi bi-upload"></i>
-                            &nbsp Upload</label>
-                        <input type="submit" name="submit" id="upload">
-                    </form>
-                </div>
+              <div class="col-lg-2 blank_page">
+                <i class="bx bx-file"></i>
+              </div>
+              <div class="col-lg-8  form-narrative">
+                <h1>Waiver</h1>
+                <p>(PDF copy)</p>
+                <form action="waiver_form.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+                  <?php $currentDate = date('m/d/Y'); ?>
+                  <input type="hidden" name="date" value="<?php echo $currentDate; ?>">
+                  <input type="file" name="file" id="file">
+                  <label for="upload">
+                    <i class="bi bi-upload"></i>
+                    &nbsp Upload</label>
+                  <input type="submit" name="submit" id="upload">
+                </form>
+              </div>
             </div>
-        </div>
+          </div>
 
-            <?php
+          <?php
 
-            if (isset($_GET['id'])) {
-              $id = $_GET['id'];
+          if (isset($_GET['id'])) {
+            $id = $_GET['id'];
 
-              // Find the requested file in the database
-              $sql = "SELECT waiver FROM records WHERE id = ?";
-              $stmt = $conn->prepare($sql);
-              $stmt->bind_param("i", $id);
-              $stmt->execute();
-              $result = $stmt->get_result();
+            // Find the requested file in the database
+            $sql = "SELECT waiver FROM records WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-              if ($result && $result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                $filename = $row['waiver'];
-                $stmt->close();
+            if ($result && $result->num_rows > 0) {
+              $row = $result->fetch_assoc();
+              $filename = $row['waiver'];
+              $stmt->close();
 
-                $file = 'images/pdf/' . $filename;
+              $file = 'images/pdf/' . $filename;
 
-                // Check if the file exists
-                if (file_exists($file)) {
-                  // Set headers for file download
-                  header('Content-Type: application/octet-stream');
-                  header('Content-Disposition: attachment; filename="' . $filename . '"');
-                  header('Content-Length: ' . filesize($file));
-                  header('Pragma: public');
-                  header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-                  header('Expires: 0');
+              // Check if the file exists
+              if (file_exists($file)) {
+                // Set headers for file download
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename="' . $filename . '"');
+                header('Content-Length: ' . filesize($file));
+                header('Pragma: public');
+                header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+                header('Expires: 0');
 
-                  // Send the file to the browser for download
-                  ob_clean();
-                  flush();
-                  readfile($file);
-                  exit;
-                } else {
-                  echo 'File not found.';
-                }
+                // Send the file to the browser for download
+                ob_clean();
+                flush();
+                readfile($file);
+                exit;
               } else {
-                echo 'Invalid file ID.';
+                echo 'File not found.';
               }
+            } else {
+              echo 'Invalid file ID.';
             }
+          }
 
-            // Fetch the list of files from the database
-            ?>
-            
-            <!-- Your HTML code for the modal -->
-            <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" id="close" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body" id="modal-body-content">
-                    <!-- Modal content will be dynamically loaded here -->
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" id="closeAndOpenModalBtn" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                  </div>
+          // Fetch the list of files from the database
+          ?>
+
+          <!-- Your HTML code for the modal -->
+          <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" id="close" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal-body-content">
+                  <!-- Modal content will be dynamically loaded here -->
+                </div>
+                <div class="modal-footer">
+                  <button type="button" id="closeAndOpenModalBtn" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div class="row ojt-center" data-aos="fade-up">
-              <div class="col-12">
-                <div class="card recent-sales overflow-auto">
-                  <div class="card-body">
-                    <table class="table datatable">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Email</th>
-                          <th>Waiver</th>
-                          <th>Date</th>
-                          <th>View</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $result = mysqli_query($conn, "SELECT * FROM records WHERE records.email = '$email'");
-                        while ($row = mysqli_fetch_array($result)) {
-                        ?>
-                          <tr>
-                            <td scope="row"><?php echo $row["id"]; ?></td>
-                            <td scope="row"><?php echo $row["email"]; ?></td>
-                            <td><a href="?id=<?php echo $row['id']; ?>"><?php echo $row['waiver'];?></td>
-                            <td scope="row"><?php echo $row["date"]; ?></td>
-                            <td><a href="javascript:void(0);" class="btn btn-primary viewmodal" data-id="<?php echo $row['id']; ?>" data-waiver="<?php echo $row['waiver']; ?>">VIEW</a></td>
-                          </tr>
-                        <?php
-                        }
-                        ?>
-                      </tbody>
-                    </table>
-                  </div>
+          <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" id="close" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
                 </div>
-              </div><!-- End Recent Sales -->
+
+                <form action="" method="POST">
+
+                  <div class="modal-body">
+
+                    <input type="hidden" name="id" id="id">
+
+                    <div class="position-relative" style="align-items: center; text-align: center;">
+                      <i class="bi bi-exclamation-circle" style="color: #FFB22E; font-size: 6rem;"></i>
+                      <h5 style="font-weight: 600; font-size: 30px;"> Are you sure?</h5>
+                      <h6 style="font-size: 20px; font-weight: 400;">Once deleted, you will not be able to recover this file!</h6>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" id="closeAndOpenModalBtn" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" name="deletedata" class="btn btn-primary"> Confirm </button>
+                  </div>
+                </form>
+              </div>
             </div>
+          </div>
+
+          <?php
+
+          if (isset($_POST['deletedata'])) {
+            $id = $_POST['id'];
+
+            $sql = "DELETE FROM records WHERE id = $id";
+            $query_run = mysqli_query($conn, $sql);
+
+            if ($query_run) {
+              $_SESSION['message'] = '   `
+    
+    <script>
+    swal("Success!", "Poof! The file has been successfully deleted!", "success");
+    </script>
+    `';
+              echo "<script>window.location.href = 'waiver_form.php';</script>";
+              exit;
+            } else {
+              $_SESSION['message'] = '    <script>
+    swal("Something went wrong!", "There is a problem removing the file.", "warning");
+    </script>';
+              echo "<script>window.location.href = 'waiver_form.php';</script>";
+              exit();
+            }
+          }
+
+          ?>
+
+          <div class="row ojt-center" data-aos="fade-up">
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                  <table class="table datatable">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Email</th>
+                        <th>Waiver</th>
+                        <th>Date</th>
+                        <th>View</th>
+                        <th>Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      $result = mysqli_query($conn, "SELECT * FROM records WHERE records.email = '$email'");
+                      while ($row = mysqli_fetch_array($result)) {
+                      ?>
+                        <tr>
+                          <td scope="row"><?php echo $row["id"]; ?></td>
+                          <td scope="row"><?php echo $row["email"]; ?></td>
+                          <td><a href="?id=<?php echo $row['id']; ?>"><?php echo $row['waiver']; ?></td>
+                          <td scope="row"><?php echo $row["date"]; ?></td>
+                          <td><a href="javascript:void(0);" class="btn btn-primary viewmodal" data-id="<?php echo $row['id']; ?>" data-waiver="<?php echo $row['waiver']; ?>">VIEW</a></td>
+                          <td><button type="button" class="btn btn-danger deletebtn"><i class="bi bi-trash" style="font-size: 15px;"></i> DELETE </button></td>
+                        </tr>
+                      <?php
+                      }
+                      ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div><!-- End Recent Sales -->
+          </div>
           </div>
         </section>
       </main><!-- End #main -->
@@ -331,6 +390,27 @@ if (isset($_POST['submit'])) {
           });
         });
       </script>
+
+<script>
+    $(document).ready(function() {
+
+      $('.deletebtn').on('click', function() {
+
+        $('#deletemodal').modal('show');
+
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+          return $(this).text();
+        }).get();
+
+        console.log(data);
+
+        $('#id').val(data[0]);
+
+      });
+    });
+  </script>
 
     <?php
   }

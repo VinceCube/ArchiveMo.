@@ -46,6 +46,29 @@ if ($result->num_rows > 0) {
     <link href="assets/css/style.css" rel="stylesheet">
 
     <style>
+       .legend{
+        float: right;
+      }
+       .inline-list {
+        display: inline-flex;
+        list-style: none;
+    }
+
+    .inline-list li {
+        margin-right: 20px; /* Adjust as needed */
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .emoji img {
+        display: block; /* Ensures the images are displayed as blocks for better alignment */
+    }
+      .emoji li img {
+        width: 50px;
+        height: auto;
+      }
+
+
       tr:nth-child(even) {
         background-color: #ededed;
       }
@@ -105,7 +128,14 @@ if ($result->num_rows > 0) {
 
         <section id="narrative" class="narrative">
           <div class="container">
-            <div class="section-title">
+            <div class="section-title" style="padding-top: 10px;">
+            <div class="legend">
+                <ul class="emoji inline-list">
+                  <li><img src="img/Happy.png" alt="">&nbsp<h6>Positive</h6></li>
+                  <li><img src="img/smile.png" alt="">&nbsp <h6>Neutral</h6></li>
+                  <li><img src="img/sad.png" alt="">&nbsp <h6>Negative</h6></li>
+                </ul>
+              </div>
               <h2>Narrative Report</h2>
             </div>
 
@@ -175,6 +205,64 @@ if ($result->num_rows > 0) {
               </div>
             </div>
 
+            <!-- delete modal -->
+          <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" id="close" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+                </div>
+
+                <form action="" method="POST">
+
+                  <div class="modal-body">
+
+                    <input type="hidden" name="id" id="id">
+
+                    <div class="position-relative" style="align-items: center; text-align: center;">
+                      <i class="bi bi-exclamation-circle" style="color: #FFB22E; font-size: 6rem;"></i>
+                      <h5 style="font-weight: 600; font-size: 30px;"> Are you sure?</h5>
+                      <h6 style="font-size: 20px; font-weight: 400;">Once deleted, you will not be able to recover this file!</h6>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" id="closeAndOpenModalBtn" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" name="deletedata" class="btn btn-primary"> Confirm </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <?php
+
+          if (isset($_POST['deletedata'])) {
+            $id = $_POST['id'];
+
+            $sql = "DELETE FROM narrative WHERE id = $id";
+            $query_run = mysqli_query($conn, $sql);
+
+            if ($query_run) {
+              $_SESSION['message'] = '   `
+    
+    <script>
+    swal("Success!", "Poof! The file has been successfully deleted!", "success");
+    </script>
+    `';
+              echo "<script>window.location.href = 'narrative_view.php';</script>";
+              exit;
+            } else {
+              $_SESSION['message'] = '    <script>
+    swal("Something went wrong!", "There is a problem removing the file.", "warning");
+    </script>';
+              echo "<script>window.location.href = 'narrative_view.php';</script>";
+              exit();
+            }
+          }
+
+          ?>
+
             <div class="row ojt-center" data-aos="fade-up">
               <div class="col-12">
                 <div class="card recent-sales overflow-auto">
@@ -184,9 +272,10 @@ if ($result->num_rows > 0) {
                         <tr>
                           <th>#</th>
                           <th>Narrative Reports</th>
-                          <th>Sentiment</th>
+                          <th>Sentiment Result</th>
                           <th>Date</th>
                           <th>View</th>
+                          <th>Delete</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -208,6 +297,7 @@ if ($result->num_rows > 0) {
                                 ?></td>
                             <td><?php echo $row["date"]; ?></td>
                             <td><a href="javascript:void(0);" class="btn btn-primary viewmodal" data-id="<?php echo $row['id']; ?>" data-waiver="<?php echo $row['file_name']; ?>">VIEW</a></td>
+                            <td><button type="button" class="btn btn-danger deletebtn"><i class="bi bi-trash" style="font-size: 15px;"></i> DELETE </button></td>
                           </tr>
                         <?php
                         }
@@ -265,6 +355,28 @@ if ($result->num_rows > 0) {
           });
         });
       </script>
+
+      
+<script>
+    $(document).ready(function() {
+
+      $('.deletebtn').on('click', function() {
+
+        $('#deletemodal').modal('show');
+
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+          return $(this).text();
+        }).get();
+
+        console.log(data);
+
+        $('#id').val(data[0]);
+
+      });
+    });
+  </script>
 
   </body>
 

@@ -142,7 +142,7 @@ if ($result->num_rows > 0) {
 
             if (mysqli_stmt_execute($stmt)) {
               $_SESSION['message'] = '<script>
-        swal("Success!", "Registration Certificate successfully submitted.", "success");
+        swal("Success!", "Parent Consent successfully submitted.", "success");
     </script>';
               echo "<script>window.location.href = 'concent_form.php';</script>";
               exit();
@@ -170,7 +170,7 @@ if ($result->num_rows > 0) {
                 <i class="bx bx-file"></i>
               </div>
               <div class="col-lg-8  form-narrative">
-                <h1>Parent Concent</h1>
+                <h1>Parent Consent</h1>
                 <p>(PDF copy)</p>
                 <form action="" method="POST" autocomplete="off" enctype="multipart/form-data">
                   <input type="hidden" name="title" value="<?php echo $row['email']; ?>">
@@ -248,6 +248,64 @@ if ($result->num_rows > 0) {
               </div>
             </div>
 
+            <!-- delete modal -->
+          <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" id="close" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+                </div>
+
+                <form action="" method="POST">
+
+                  <div class="modal-body">
+
+                    <input type="hidden" name="id" id="id">
+
+                    <div class="position-relative" style="align-items: center; text-align: center;">
+                      <i class="bi bi-exclamation-circle" style="color: #FFB22E; font-size: 6rem;"></i>
+                      <h5 style="font-weight: 600; font-size: 30px;"> Are you sure?</h5>
+                      <h6 style="font-size: 20px; font-weight: 400;">Once deleted, you will not be able to recover this file!</h6>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" id="closeAndOpenModalBtn" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" name="deletedata" class="btn btn-primary"> Confirm </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <?php
+
+          if (isset($_POST['deletedata'])) {
+            $id = $_POST['id'];
+
+            $sql = "DELETE FROM concent WHERE id = $id";
+            $query_run = mysqli_query($conn, $sql);
+
+            if ($query_run) {
+              $_SESSION['message'] = '   `
+    
+    <script>
+    swal("Success!", "Poof! The file has been successfully deleted!", "success");
+    </script>
+    `';
+              echo "<script>window.location.href = 'concent_form.php';</script>";
+              exit;
+            } else {
+              $_SESSION['message'] = '    <script>
+    swal("Something went wrong!", "There is a problem removing the file.", "warning");
+    </script>';
+              echo "<script>window.location.href = 'concent_form.php';</script>";
+              exit();
+            }
+          }
+
+          ?>
+
             <div class="row ojt-center" data-aos="fade-up">
               <div class="col-12">
                 <div class="card recent-sales overflow-auto">
@@ -258,9 +316,10 @@ if ($result->num_rows > 0) {
                         <tr>
                           <th>#</th>
                           <th>Email</th>
-                          <th>Parent Concent</th>
+                          <th>Parent Consent</th>
                           <th>Date</th>
                           <th>View</th>
+                          <th>Delete</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -274,6 +333,7 @@ if ($result->num_rows > 0) {
                             <td><a href="?id=<?php echo $row['id']; ?>"><?php echo $row['concent']; ?></td>
                             <td scope="row"><?php echo $row["date"]; ?></td>
                             <td><a href="javascript:void(0);" class="btn btn-primary viewmodal" data-id="<?php echo $row['id']; ?>" data-concent="<?php echo $row['concent']; ?>">VIEW</a></td>
+                            <td><button type="button" class="btn btn-danger deletebtn"><i class="bi bi-trash" style="font-size: 15px;"></i> DELETE </button></td>
                           </tr>
                         <?php
                         }
@@ -331,6 +391,28 @@ if ($result->num_rows > 0) {
           });
         });
       </script>
+
+
+<script>
+    $(document).ready(function() {
+
+      $('.deletebtn').on('click', function() {
+
+        $('#deletemodal').modal('show');
+
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+          return $(this).text();
+        }).get();
+
+        console.log(data);
+
+        $('#id').val(data[0]);
+
+      });
+    });
+  </script>
 
   <?php
     }

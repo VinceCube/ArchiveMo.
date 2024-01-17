@@ -5,7 +5,7 @@ include 'dbconn.php';
 $email = $_SESSION['useremail'];
 if (isset($_SESSION['useremail'])) {
 } else {
-  header("location: admin-index.php");
+  echo "<script>window.location.href='admin-index.php';</script>";
 }
 ?>
 <?php
@@ -42,6 +42,7 @@ if ($result->num_rows > 0) {
     <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+    <script src="assets/vendor/testLocalJs/sweetalert.min.js"></script>
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
@@ -201,6 +202,41 @@ if ($result->num_rows > 0) {
           </div>
         </div>
 
+        <!-- Codes for the delete modal -->
+        <?php
+
+        if (isset($_SESSION['message'])) {
+          echo $_SESSION['message'];
+          unset($_SESSION['message']);
+        }
+
+        if (isset($_POST['deletedata'])) {
+          $id = $_POST['id'];
+
+          $sql = "DELETE FROM narrative WHERE id = $id";
+          $query_run = mysqli_query($conn, $sql);
+
+          if ($query_run) {
+            $_SESSION['message'] = '   `
+
+<script>
+swal("Success!", "Poof! The file has been deleted!", "success");
+</script>
+`';
+            echo "<script>window.location.href = 'narrative-test.php';</script>";
+            exit;
+          } else {
+            $_SESSION['message'] = '    <script>
+swal("Something went wrong!", "There is a problem removing inventory.", "warning");
+</script>';
+            echo "<script>window.location.href = 'narrative-test.php';</script>";
+            exit();
+          }
+        }
+
+        ?>
+
+
         <div class="col-12">
           <div class="card recent-sales overflow-auto">
             <div class="card-body">
@@ -214,6 +250,7 @@ if ($result->num_rows > 0) {
                     <th>Sentiment</th>
                     <th>Date</th>
                     <th>View</th>
+                    <th>Delete</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -239,6 +276,39 @@ if ($result->num_rows > 0) {
                       </td>
                       <td><?php echo $row["date"]; ?></td>
                       <td><a href="javascript:void(0);" class="btn btn-primary viewmodal" data-id="<?php echo $row['id']; ?>" data-waiver="<?php echo $row['file_name']; ?>">VIEW</a></td>
+                      <td><button type="button" class="btn btn-danger deletebtn" data-bs-toggle="modal" data-bs-target="#deletemodal<?php echo $row['id']; ?>"><i class="bi bi-trash" style="font-size: 15px;"></i> DELETE </button>
+
+                        <!-- Delete Inventory Modal -->
+
+                        <div class="modal fade" id="deletemodal<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" id="close" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                </button>
+                              </div>
+
+                              <form action="" method="POST">
+
+                                <div class="modal-body">
+
+                                  <input type="hidden" name="id" id="id" value="<?php echo $row['id']; ?>">
+
+                                  <div class="position-relative" style="align-items: center; text-align: center;">
+                                    <i class="bi bi-exclamation-circle" style="color: #FFB22E; font-size: 6rem;"></i>
+                                    <h5 style="font-weight: 600; font-size: 30px;"> Are you sure?</h5>
+                                    <h6 style="font-size: 20px; font-weight: 400;">Once deleted, you will not be able to recover this data!</h6>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" id="closeAndOpenModalBtn" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                  <button type="submit" name="deletedata" class="btn btn-primary"> Confirm </button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
                     </tr>
                   <?php
                   }
